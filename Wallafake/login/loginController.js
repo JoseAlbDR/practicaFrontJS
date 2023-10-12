@@ -1,6 +1,6 @@
-import { registerUser } from './registerModel.js';
+import { loginUser } from './loginModel.js';
 
-export const registerController = async (form) => {
+export const loginController = async (form) => {
   const username = form.elements['username'].value;
   const password = form.elements['password'].value;
   const user = {
@@ -8,6 +8,6 @@ export const registerController = async (form) => {
     password,
   };
 
-  const res = await registerUser(user);
+  const res = await loginUser(user);
   console.log(res);
 };
