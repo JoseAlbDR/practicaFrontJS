@@ -2,11 +2,11 @@ import { loginUser } from './loginModel.js';
 import { createCustomEvent } from '../utils/createCustomEvent.js';
 
 export const loginController = async (form) => {
-  const username = form.elements['username'].value;
-  const password = form.elements['password'].value;
+  const formData = new FormData(form);
+
   const user = {
-    username,
-    password,
+    username: formData.get('username'),
+    password: formData.get('password'),
   };
 
   try {
