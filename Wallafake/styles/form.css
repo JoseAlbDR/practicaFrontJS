@@ -9,6 +9,10 @@
   border-top: 5px solid var(--primary-500);
 }
 
+.form-row {
+  margin-top: 1rem;
+}
+
 .form-logo {
   display: block;
   margin: 0 auto;
