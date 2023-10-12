@@ -13,5 +13,5 @@ registerBtn.addEventListener('click', (e) => {
 });
 
 registerForm.addEventListener('register', (e) => {
-  showNotification(e.detail.message, event.detail.type);
+  showNotification(e.detail.message, e.detail.type);
 });

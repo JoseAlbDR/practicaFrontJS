@@ -10,7 +10,13 @@ export const registerController = async (form) => {
   };
 
   try {
-    const res = await registerUser(user);
+    await registerUser(user);
+    const event = createCustomEvent(
+      'register',
+      'success',
+      'User successfully created'
+    );
+    form.dispatchEvent(event);
   } catch (error) {
     const event = createCustomEvent('register', 'error', error.message);
     form.dispatchEvent(event);
