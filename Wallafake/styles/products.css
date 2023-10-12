@@ -1,0 +1,25 @@
+h1 {
+  text-align: center;
+}
+
+.products {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin: 2rem;
+}
+
+.product {
+  position: relative;
+  padding: 2rem 1rem;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  border: 1px solid black;
+  box-shadow: var(--shadow-2);
+  border-radius: var(--border-radius);
+  width: 300px;
+}

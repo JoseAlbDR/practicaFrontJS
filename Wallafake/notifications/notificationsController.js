@@ -7,7 +7,7 @@ export const notificationController = (notifications) => {
     notifications.appendChild(notificationContainer);
     setTimeout(() => {
       notificationContainer.innerHTML = '';
-    }, 1000000000);
+    }, 2000);
   };
 
   return showNotification;

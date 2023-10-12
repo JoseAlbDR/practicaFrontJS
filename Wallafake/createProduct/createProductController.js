@@ -15,7 +15,7 @@ export const createProductController = async (form) => {
   const token = localStorage.getItem('accessToken');
 
   try {
-    const response = await createProduct(product, token);
+    await createProduct(product, token);
     const event = createCustomEvent(
       'create-product',
       'success',
@@ -23,8 +23,8 @@ export const createProductController = async (form) => {
     );
     form.dispatchEvent(event);
     form.reset();
-    console.log(response);
   } catch (error) {
-    console.log(error);
+    const event = createCustomEvent('create-product', 'error', error.message);
+    form.dispatchEvent(event);
   }
 };
