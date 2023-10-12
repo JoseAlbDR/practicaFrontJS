@@ -1,16 +1,12 @@
-import { buildMenu } from './menuView.js';
+import { menuItems } from './menuModel.js';
+import { buildMenuItem } from './menuView.js';
 
-export const menuController = (menu, activeItem) => {
-  const menuItems = buildMenu(activeItem);
-  menu.innerHTML = menuItems;
+export const menuController = (menuContainer, activeItem) => {
+  const menuLinks = document.createElement('div');
+  menuLinks.classList.add('menu-items');
+  menuItems.forEach((item) => {
+    const menuItem = buildMenuItem(activeItem, item);
+    menuLinks.appendChild(menuItem);
+  });
+  menuContainer.appendChild(menuLinks);
 };
-
-menu.addEventListener('click', (e) => {
-  if (e.target.id !== 'logout') return;
-
-  localStorage.removeItem('accessToken');
-
-  setTimeout(() => {
-    window.location.href = 'create-product.html';
-  }, 1000);
-});

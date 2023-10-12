@@ -1,7 +1,11 @@
 .content {
-  min-height: 100vh;
+  height: 100%;
   display: grid;
   align-items: center;
+}
+
+.create-content {
+  height: initial;
 }
 
 .form {

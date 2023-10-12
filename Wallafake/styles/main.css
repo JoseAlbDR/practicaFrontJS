@@ -73,6 +73,7 @@ body {
   line-height: 1.75;
   color: var(--textColor);
   margin: 0;
+  height: 100vh;
 }
 
 p {

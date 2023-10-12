@@ -15,4 +15,16 @@ document.addEventListener('DOMContentLoaded', () => {
   productList.addEventListener('productsLoaded', (e) => {
     showNotification(e.detail.message, e.detail.type);
   });
+
+  menuContainer.addEventListener('click', (e) => {
+    if (e.target.id !== 'logout') return;
+
+    localStorage.removeItem('accessToken');
+
+    showNotification('Logging out...', 'success');
+
+    setTimeout(() => {
+      window.location.href = '/';
+    }, 2000);
+  });
 });
