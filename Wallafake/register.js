@@ -7,7 +7,7 @@ const notifications = document.getElementById('notifications');
 
 const showNotification = notificationController(notifications);
 
-registerBtn.addEventListener('click', (e) => {
+registerForm.addEventListener('submit', (e) => {
   e.preventDefault();
   registerController(registerForm);
 });

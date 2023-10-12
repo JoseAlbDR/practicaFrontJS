@@ -2,7 +2,6 @@ import { createProductController } from './createProduct/createProductController
 import { notificationController } from './notifications/notificationsController.js';
 
 const createForm = document.getElementById('create-form');
-const createBtn = document.getElementById('create-btn');
 const notifications = document.getElementById('notifications');
 
 const showNotification = notificationController(notifications);

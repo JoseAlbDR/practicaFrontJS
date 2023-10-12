@@ -4,8 +4,6 @@ import { createCustomEvent } from '../utils/createCustomEvent.js';
 export const createProductController = async (form) => {
   const formData = new FormData(form);
 
-  console.log(formData);
-
   const product = {
     image: formData.get('image'),
     name: formData.get('name'),
