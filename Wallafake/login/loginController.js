@@ -11,7 +11,9 @@ export const loginController = async (form) => {
 
   try {
     const res = await loginUser(user);
+
     localStorage.setItem('accessToken', res.accessToken);
+
     const event = createCustomEvent(
       'login',
       'success',

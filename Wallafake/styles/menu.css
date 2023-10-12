@@ -1,0 +1,31 @@
+#menu {
+  position: sticky;
+  top: 0;
+  z-index: 998;
+}
+
+.menu {
+  padding: 2rem;
+  width: 100%;
+  margin: 0 auto;
+  background-color: var(--white);
+  box-shadow: var(--shadow-2);
+}
+
+.menu-items {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.menu-items a {
+  font-weight: 700;
+  color: var(--text-color);
+  transition: var(--transition);
+}
+
+.menu-items a:hover,
+.menu-items a.active {
+  transform: translateY(-10px);
+  color: var(--primary-500);
+}
