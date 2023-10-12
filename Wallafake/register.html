@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./styles/main.css" />
+    <link rel="stylesheet" href="./styles/form.css" />
+    <title>Register</title>
+  </head>
+  <body>
+    <div class="content">
+      <form method="post" class="form" id="register-form">
+        <h4 class="form-title">Register</h4>
+        <img
+          src="./assets/images/undraw_sign_up_n6im.svg"
+          alt="register image"
+          class="img form-logo"
+        />
+        <div className="form-row">
+          <label className="form-label" htmlFor="name"> User Name </label>
+          <input class="form-input" type="text" id="name" name="username" />
+        </div>
+        <div className="form-row">
+          <label className="form-label" htmlFor="name"> Password </label>
+          <input
+            class="form-input"
+            type="password"
+            id="password"
+            name="password"
+          />
+        </div>
+        <button type="submit" class="btn btn-block form-btn">Submit</button>
+      </form>
+    </div>
+  </body>
+</html>
