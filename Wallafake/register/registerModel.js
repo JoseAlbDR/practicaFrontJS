@@ -1,4 +1,4 @@
-export const loginUser = async (userData) => {
+export const registerUser = async (userData) => {
   const url = 'http://localhost:8000/auth/register';
   const requestOptions = {
     method: 'POST',

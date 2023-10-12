@@ -8,6 +8,6 @@ export const registerController = async (form) => {
     password,
   };
 
-  const res = await loginUser(user);
+  const res = await registerUser(user);
   console.log(res);
 };
