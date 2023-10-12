@@ -8,6 +8,10 @@ export const loginController = async (form) => {
     password,
   };
 
-  const res = await loginUser(user);
-  console.log(res);
+  try {
+    const res = await loginUser(user);
+    localStorage.setItem('accessToken', res.accessToken);
+  } catch (error) {
+    console.log(error);
+  }
 };
