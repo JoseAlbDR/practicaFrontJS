@@ -1,0 +1,16 @@
+.notification {
+  text-align: center;
+  /* margin-bottom: 2rem; */
+  padding: 1rem;
+  width: 50%;
+  margin: 0 auto;
+  position: absolute;
+  top: 10%;
+  left: 25%;
+  box-shadow: var(--shadow-2);
+}
+
+.notification p {
+  margin: 0;
+  text-transform: capitalize;
+}

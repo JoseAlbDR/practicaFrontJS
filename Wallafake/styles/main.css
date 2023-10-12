@@ -183,12 +183,12 @@ ul {
   border-radius: var(--borderRadius);
 }
 
-.alert-danger {
+.error {
   color: var(--red-dark);
   background: var(--red-light);
 }
 
-.alert-success {
+.success {
   color: var(--green-dark);
   background: var(--green-light);
 }

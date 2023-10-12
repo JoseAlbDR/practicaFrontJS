@@ -1,4 +1,5 @@
 import { registerUser } from './registerModel.js';
+import { createCustomEvent } from '../utils/createCustomEvent.js';
 
 export const registerController = async (form) => {
   const username = form.elements['username'].value;
@@ -8,6 +9,10 @@ export const registerController = async (form) => {
     password,
   };
 
-  const res = await registerUser(user);
-  console.log(res);
+  try {
+    const res = await registerUser(user);
+  } catch (error) {
+    const event = createCustomEvent('register', 'error', error.message);
+    form.dispatchEvent(event);
+  }
 };
