@@ -1,18 +1,30 @@
 import { createProduct } from './createProductModel.js';
+import { createCustomEvent } from '../utils/createCustomEvent.js';
 
 export const createProductController = async (form) => {
+  const formData = new FormData(form);
+
+  console.log(formData);
+
   const product = {
-    image: form.elements['image'].value,
-    name: form.elements['name'].value,
-    description: form.elements['description'].value,
-    price: +form.elements['price'].value,
-    for: form.elements['type'].value,
+    image: formData.get('image'),
+    name: formData.get('name'),
+    description: formData.get('description'),
+    price: +formData.get('price'),
+    for: formData.get('type'),
   };
 
   const token = localStorage.getItem('accessToken');
 
   try {
     const response = await createProduct(product, token);
+    const event = createCustomEvent(
+      'create-product',
+      'success',
+      'Product created successfully'
+    );
+    form.dispatchEvent(event);
+    form.reset();
     console.log(response);
   } catch (error) {
     console.log(error);

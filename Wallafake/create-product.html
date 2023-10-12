@@ -5,11 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="./styles/main.css" />
     <link rel="stylesheet" href="./styles/form.css" />
+    <link rel="stylesheet" href="./styles/notifications.css" />
+
     <title>Create Product</title>
   </head>
   <body>
     <div class="content">
-      <form method="post" class="form" id="create-form">
+      <section id="notifications"></section>
+      <form class="form" id="create-form">
         <h4 class="form-title">Create Product</h4>
         <img
           src="./assets/images/undraw_create_re_57a3.svg"
@@ -22,7 +25,13 @@
         </div>
         <div class="form-row">
           <label class="form-label" for="name"> Name </label>
-          <input class="form-input" type="text" id="name" name="name" />
+          <input
+            class="form-input"
+            type="text"
+            id="name"
+            name="name"
+            required
+          />
         </div>
         <div class="form-row">
           <label class="form-label" for="description"> Description </label>
@@ -31,6 +40,7 @@
             type="text"
             id="description"
             name="description"
+            required
           ></textarea>
         </div>
         <div class="form-row">
@@ -41,6 +51,7 @@
             min="0"
             id="price"
             name="price"
+            required
           />
         </div>
         <div class="form-row">
@@ -50,7 +61,7 @@
             <option value="Search">Sell</option>
           </select>
         </div>
-        <button type="button" class="btn btn-block form-btn" id="create-btn">
+        <button type="submit" class="btn btn-block form-btn" id="create-btn">
           Submit
         </button>
       </form>
