@@ -6,10 +6,12 @@ export const emptyProducts = () => {
 
 export const buildProduct = (product) => {
   return `
+  <a href="./products.html">
     <img src="${product.image}" alt="product image"  class="img"/>
     <span>Name: ${product.name}</span>
     <span>Description: ${product.description}</span>
     <p>Price: ${product.price}€</p>
     <p class=${product.for.toLowerCase()}>${product.for}</p>
+  </a>
   `;
 };
