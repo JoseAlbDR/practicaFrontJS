@@ -3,12 +3,39 @@ h1 {
 }
 
 .products {
+  background: var(--background-secondary-color);
+  border-radius: var(--border-radius);
   display: flex;
   flex-wrap: wrap;
-  align-items: center;
+  /* align-items: center; */
   justify-content: center;
+  gap: 2rem;
+  /* grid-template-rows: 1fr auto; */
+  box-shadow: var(--shadow-2);
+  width: 100%;
+}
+
+.on,
+.search {
+  align-self: flex-end;
   gap: 1rem;
-  margin: 2rem;
+  padding: 0.5rem;
+  border-radius: var(--border-radius);
+}
+
+.on {
+  background: #fef3c7;
+  color: #f59e0b;
+}
+
+.search {
+  background: #e0e8f9;
+  color: #647acb;
+}
+
+.img {
+  min-height: 30vh;
+  border-radius: var(--border-radius);
 }
 
 .product {
