@@ -18,6 +18,10 @@ export const loginController = async (form) => {
       'User logged in successfully'
     );
     form.dispatchEvent(event);
+
+    setTimeout(() => {
+      window.location.href = 'create-product.html';
+    }, 1000);
   } catch (error) {
     const event = createCustomEvent('login', 'error', error.message);
     form.dispatchEvent(event);

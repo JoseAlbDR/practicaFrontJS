@@ -17,6 +17,7 @@ export const registerController = async (form) => {
       'User successfully created'
     );
     form.dispatchEvent(event);
+    window.location.href = 'login.html';
   } catch (error) {
     const event = createCustomEvent('register', 'error', error.message);
     form.dispatchEvent(event);
