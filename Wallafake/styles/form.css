@@ -28,3 +28,14 @@
 .form-btn {
   margin-top: 1rem;
 }
+
+.already-member {
+  margin-top: 1rem;
+  text-align: center;
+  letter-spacing: var(--letter-spacing);
+}
+
+.already-member a {
+  color: var(--primary-300);
+  margin-left: 0.5rem;
+}
