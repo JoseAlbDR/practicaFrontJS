@@ -1,4 +1,4 @@
-import { registerUser } from './registerModel.js';
+import { registerUser } from './signupModel.js';
 import { dispatchEvent } from '../utils/createCustomEvent.js';
 
 export const registerController = async (form) => {
