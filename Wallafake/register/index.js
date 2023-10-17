@@ -11,6 +11,6 @@ registerForm.addEventListener('submit', (e) => {
   registerController(registerForm);
 });
 
-registerForm.addEventListener('register', (e) => {
+registerForm.addEventListener('signup', (e) => {
   showNotification(e.detail.message, e.detail.type);
 });

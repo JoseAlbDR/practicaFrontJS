@@ -1,4 +1,4 @@
-import { createCustomEvent } from '../utils/createCustomEvent.js';
+import { dispatchEvent } from '../utils/createCustomEvent.js';
 import { getProducts } from './productListModel.js';
 import { buildProduct, emptyProducts } from './productsListView.js';
 
@@ -11,19 +11,17 @@ export const productListController = async (productList) => {
       return;
     }
     renderProducts(products, productList);
-    const event = createCustomEvent(
+    dispatchEvent(
       'productsLoaded',
-      'success',
-      'Products loaded successfully'
+      { type: 'success', message: 'Products loaded successfully' },
+      productList
     );
-    productList.dispatchEvent(event);
   } catch (error) {
-    const event = createCustomEvent(
+    dispatchEvent(
       'productsLoaded',
-      'error',
-      error.message || 'Error loading products'
+      { type: 'error', message: error.message || 'Error loading products' },
+      productList
     );
-    productList.dispatchEvent(event);
   }
 };
 

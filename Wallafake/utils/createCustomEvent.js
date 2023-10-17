@@ -1,4 +1,4 @@
-export const createCustomEvent = (name, type, message) => {
+const createCustomEvent = (name, { type, message }) => {
   const event = new CustomEvent(name, {
     detail: {
       type: type,
@@ -9,6 +9,6 @@ export const createCustomEvent = (name, type, message) => {
 };
 
 export const dispatchEvent = (eventName, data, element) => {
-  const event = createCustomEvent(eventName, ...data);
+  const event = createCustomEvent(eventName, { ...data });
   element.dispatchEvent(event);
 };
