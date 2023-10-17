@@ -1,5 +1,5 @@
 import { createProduct } from './createProductModel.js';
-import { createCustomEvent } from '../utils/createCustomEvent.js';
+import { dispatchEvent } from '../utils/createCustomEvent.js';
 
 export const createProductController = async (form) => {
   const formData = new FormData(form);
@@ -16,15 +16,20 @@ export const createProductController = async (form) => {
 
   try {
     await createProduct(product, token);
-    const event = createCustomEvent(
+    dispatchEvent(
       'create-product',
-      'success',
-      'Product created successfully'
+      { type: 'success', message: 'Product created successfully' },
+      form
     );
-    form.dispatchEvent(event);
     form.reset();
   } catch (error) {
-    const event = createCustomEvent('create-product', 'error', error.message);
-    form.dispatchEvent(event);
+    dispatchEvent(
+      'create-product',
+      {
+        type: 'error',
+        message: error.message || 'Error creating product, try again later',
+      },
+      form
+    );
   }
 };
