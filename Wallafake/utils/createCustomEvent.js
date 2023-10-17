@@ -7,3 +7,8 @@ export const createCustomEvent = (name, type, message) => {
   });
   return event;
 };
+
+export const dispatchEvent = (eventName, data, element) => {
+  const event = createCustomEvent(eventName, ...data);
+  element.dispatchEvent(event);
+};
