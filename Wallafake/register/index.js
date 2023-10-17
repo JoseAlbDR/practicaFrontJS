@@ -1,5 +1,5 @@
-import { registerController } from './register/registerController.js';
-import { notificationController } from './notifications/notificationsController.js';
+import { registerController } from './registerController.js';
+import { notificationController } from '../notifications/notificationsController.js';
 
 const registerForm = document.getElementById('register-form');
 const notifications = document.getElementById('notifications');

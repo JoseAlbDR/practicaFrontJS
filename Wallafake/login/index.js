@@ -1,5 +1,5 @@
-import { loginController } from './login/loginController.js';
-import { notificationController } from './notifications/notificationsController.js';
+import { loginController } from './loginController.js';
+import { notificationController } from '../notifications/notificationsController.js';
 
 const loginForm = document.getElementById('login-form');
 const notifications = document.getElementById('notifications');

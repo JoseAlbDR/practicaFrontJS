@@ -1,5 +1,8 @@
 import { registerUser } from './registerModel.js';
-import { createCustomEvent } from '../utils/createCustomEvent.js';
+import {
+  createCustomEvent,
+  dispatchEvent,
+} from '../utils/createCustomEvent.js';
 
 export const registerController = async (form) => {
   const formData = new FormData(form);
@@ -11,15 +14,13 @@ export const registerController = async (form) => {
 
   try {
     await registerUser(user);
-    const event = createCustomEvent(
-      'register',
-      'success',
-      'User successfully created'
+    dispatchEvent(
+      'signup',
+      { type: 'success', message: 'User successfully created' },
+      form
     );
-    form.dispatchEvent(event);
     window.location.href = 'login.html';
   } catch (error) {
-    const event = createCustomEvent('register', 'error', error.message);
-    form.dispatchEvent(event);
+    dispatchEvent('signup', { type: 'error', message: error.message }, form);
   }
 };

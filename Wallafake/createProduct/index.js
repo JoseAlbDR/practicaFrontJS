@@ -1,6 +1,6 @@
-import { createProductController } from './createProduct/createProductController.js';
-import { notificationController } from './notifications/notificationsController.js';
-import { menuController } from './menu/menuController.js';
+import { createProductController } from './createProductController.js';
+import { notificationController } from '../notifications/notificationsController.js';
+import { menuController } from '../menu/menuController.js';
 
 const createForm = document.getElementById('create-form');
 const notifications = document.getElementById('notifications');
