@@ -4,6 +4,8 @@ import {
   errorMessageEvent,
   successMessageEvent,
 } from '../utils/customEvent.js';
+import { disableForm } from '../utils/disableForm.js';
+import { enableForm } from '../utils/enableForm.js';
 
 export const registerController = (form) => {
   form.addEventListener('submit', async (e) => {
@@ -14,6 +16,7 @@ export const registerController = (form) => {
     try {
       if (isValidPassword(data.password, data.repeatPassword)) {
         dispatchCustomEvent('signUpStart', null, form);
+        disableForm(form);
         await registerUser(data);
         successMessageEvent('signup', 'User created', form);
         window.location.href = 'login.html';
@@ -23,6 +26,7 @@ export const registerController = (form) => {
     } catch (error) {
       errorMessageEvent('signup', error.message, form);
     } finally {
+      enableForm(form);
       dispatchCustomEvent('signUpEnd', null, form);
     }
   });

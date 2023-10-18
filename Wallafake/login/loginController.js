@@ -4,6 +4,8 @@ import {
   errorMessageEvent,
   successMessageEvent,
 } from '../utils/customEvent.js';
+import { disableForm } from '../utils/disableForm.js';
+import { enableForm } from '../utils/enableForm.js';
 
 export const loginController = async (form) => {
   form.addEventListener('submit', async (e) => {
@@ -17,6 +19,7 @@ export const loginController = async (form) => {
 
     try {
       dispatchCustomEvent('loginStart', null, form);
+      disableForm(form);
       const res = await loginUser(user);
       localStorage.setItem('accessToken', res.accessToken);
       successMessageEvent('login', 'User logged in', form);
@@ -25,6 +28,7 @@ export const loginController = async (form) => {
       errorMessageEvent('login', error.message, form);
     } finally {
       dispatchCustomEvent('loginEnd', null, form);
+      enableForm(form);
     }
   });
 };
