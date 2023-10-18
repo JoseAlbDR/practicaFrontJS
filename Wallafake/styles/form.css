@@ -1,7 +1,8 @@
 .content {
-  height: 100%;
   display: grid;
   align-items: center;
+  width: 100%;
+  padding: 1.5rem;
 }
 
 .create-content {
@@ -9,6 +10,7 @@
 }
 
 .form {
+  width: 100%;
   max-width: 400px;
   border-top: 5px solid var(--primary-500);
 }
@@ -53,4 +55,19 @@
   background-color: #eee;
   border: 1px solid #ccc;
   cursor: not-allowed;
+}
+
+@media (width > 1120px) {
+  .content {
+    grid-template-columns: 400px 1fr;
+  }
+
+  #search-form.form {
+    grid-row: 2;
+    align-self: self-start;
+  }
+
+  .content h1 {
+    grid-column: span 5;
+  }
 }
