@@ -1,10 +1,14 @@
-import { errorMessageEvent } from '../utils/customEvent.js';
+import {
+  dispatchCustomEvent,
+  errorMessageEvent,
+} from '../utils/customEvent.js';
 import { getProducts } from './productListModel.js';
 import { buildProduct, emptyProducts } from './productsListView.js';
 
 export const productListController = async (productList) => {
   let products = [];
   try {
+    dispatchCustomEvent('loadingProductsStart', null, productList);
     products = await getProducts();
     if (products.length === 0) {
       productList.innerHTML = emptyProducts();
@@ -13,6 +17,8 @@ export const productListController = async (productList) => {
     renderProducts(products, productList);
   } catch (error) {
     errorMessageEvent('productsLoaded', error.message, form);
+  } finally {
+    dispatchCustomEvent('loadingProductsEnd', null, productList);
   }
 };
 
