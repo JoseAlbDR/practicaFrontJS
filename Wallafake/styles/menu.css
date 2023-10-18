@@ -28,3 +28,9 @@
   transform: translateY(-10px);
   color: var(--primary-500);
 }
+
+@media (width < 768px) {
+  .menu-items {
+    width: 100%;
+  }
+}
