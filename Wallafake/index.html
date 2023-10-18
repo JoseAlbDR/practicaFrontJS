@@ -7,12 +7,30 @@
     <link rel="stylesheet" href="./styles/notifications.css" />
     <link rel="stylesheet" href="./styles/products.css" />
     <link rel="stylesheet" href="./styles/menu.css" />
+    <link rel="stylesheet" href="./styles/form.css" />
     <title>WallaFake - Product List</title>
   </head>
   <body>
     <nav id="menu" class="menu"></nav>
     <section id="notifications"></section>
     <div class="content">
+      <form id="search-form" class="form">
+        <h4 class="form-title">Search</h4>
+        <div class="form-row">
+          <label class="form-label" for="name"> User Name </label>
+          <input
+            class="form-input"
+            type="text"
+            id="name"
+            name="username"
+            minlength="3"
+            required
+          />
+        </div>
+        <button type="submit" class="btn btn-block form-btn" id="search-btn">
+          Submit
+        </button>
+      </form>
       <h1>Product List</h1>
       <section id="spinner"></section>
       <section id="products" class="products"></section>
