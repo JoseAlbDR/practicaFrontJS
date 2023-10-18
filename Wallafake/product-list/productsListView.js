@@ -6,7 +6,7 @@ export const emptyProducts = () => {
 
 export const buildProduct = (product) => {
   return `
-  <a href="./products.html?id=${product.id}">
+  <a href="./product-detail.html?id=${product.id}">
     <img src="${product.image}" alt="product image"  class="img"/>
     <span>Name: ${product.name}</span>
     <span>Description: ${product.description}</span>
