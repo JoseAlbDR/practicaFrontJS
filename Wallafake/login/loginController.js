@@ -21,7 +21,7 @@ export const loginController = async (form) => {
     );
 
     setTimeout(() => {
-      window.location.href = 'create-product.html';
+      window.location.href = '/';
     }, 1000);
   } catch (error) {
     dispatchEvent(
