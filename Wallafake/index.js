@@ -2,10 +2,9 @@ import { productListController } from './product-list/productListController.js';
 import { notificationController } from './notifications/notificationsController.js';
 import { menuController } from './menu/menuController.js';
 
-const notifications = document.getElementById('notifications');
-const showNotification = notificationController(notifications);
-
 document.addEventListener('DOMContentLoaded', () => {
+  const notifications = document.getElementById('notifications');
+  const showNotification = notificationController(notifications);
   const productList = document.getElementById('products');
 
   const menuContainer = document.getElementById('menu');
