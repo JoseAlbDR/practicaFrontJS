@@ -1,20 +1,23 @@
+import { buildProduct } from '../product-list/productsListView.js';
 import {
-  buildProduct,
-  emptyProducts,
-} from '../product-list/productsListView.js';
+  dispatchCustomEvent,
+  errorMessageEvent,
+} from '../utils/customEvent.js';
 import { getProduct } from './productDetailModel.js';
 
 export const productDetailController = async (productDetail) => {
   const id = getProductId();
   try {
+    dispatchCustomEvent('loadingProductStart', null, productDetail);
     const product = await getProduct(id);
-    if (!product) {
-      productDetail.innerHTML = emptyProducts();
-      return;
-    }
     renderProduct(product, productDetail);
   } catch (error) {
-    window.location.href = '/';
+    setTimeout(() => {
+      window.location.href = '/';
+    }, 2000);
+    errorMessageEvent('productLoaded', error.message, productDetail);
+  } finally {
+    dispatchCustomEvent('loadingProductEnd', null, productDetail);
   }
 };
 
