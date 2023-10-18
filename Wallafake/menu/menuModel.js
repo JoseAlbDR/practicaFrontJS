@@ -1,4 +1,4 @@
-export const menuItems = [
+export const authenticatedItems = [
   {
     name: 'Home',
     id: 'home',
@@ -12,6 +12,19 @@ export const menuItems = [
   {
     name: 'Logout',
     id: 'logout',
-    href: 'login.html',
+    href: '/',
+  },
+];
+
+export const unauthenticatedItems = [
+  {
+    name: 'Login',
+    id: 'login',
+    href: './login.html',
+  },
+  {
+    name: 'Sign Up',
+    id: 'signup',
+    href: './signup.html',
   },
 ];
