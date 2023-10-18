@@ -7,7 +7,9 @@ export const emptyProducts = () => {
 export const buildProduct = (product) => {
   return `
   <a href="./product-detail.html?id=${product.id}">
-    <img src="${product.image}" alt="product image"  class="img"/>
+    <img src="${
+      product.image
+    }" alt="product image"  class="img" onerror="this.src='../assets/images/no-image-available.webp'"/>
     <div class="product-content">
       <span>Name: ${product.name}</span>
       <span>Description: ${product.description}</span>
