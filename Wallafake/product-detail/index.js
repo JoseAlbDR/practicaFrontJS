@@ -10,6 +10,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const showNotification = notificationController(notifications);
   const { showSpinner, hideSpinner } = spinnerController(spinner);
 
+  const id = getProductId();
+
   const menuContainer = document.getElementById('menu');
   menuController(menuContainer, '');
 
@@ -25,5 +27,12 @@ document.addEventListener('DOMContentLoaded', () => {
     hideSpinner();
   });
 
-  productDetailController(productDetail);
+  productDetailController(productDetail, id);
 });
+
+const getProductId = () => {
+  const queryString = window.location.search;
+  const searchParams = new URLSearchParams(queryString);
+  const id = searchParams.get('id');
+  return id;
+};

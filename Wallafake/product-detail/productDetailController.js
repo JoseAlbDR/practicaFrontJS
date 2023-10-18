@@ -5,8 +5,7 @@ import {
 } from '../utils/customEvent.js';
 import { getProduct } from './productDetailModel.js';
 
-export const productDetailController = async (productDetail) => {
-  const id = getProductId();
+export const productDetailController = async (productDetail, id) => {
   try {
     dispatchCustomEvent('loadingProductStart', null, productDetail);
     const product = await getProduct(id);
@@ -19,13 +18,6 @@ export const productDetailController = async (productDetail) => {
   } finally {
     dispatchCustomEvent('loadingProductEnd', null, productDetail);
   }
-};
-
-const getProductId = () => {
-  const queryString = window.location.search;
-  const searchParams = new URLSearchParams(queryString);
-  const id = searchParams.get('id');
-  return id;
 };
 
 const renderProduct = (product, productDetail) => {

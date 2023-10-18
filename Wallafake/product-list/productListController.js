@@ -16,7 +16,7 @@ export const productListController = async (productList) => {
     }
     renderProducts(products, productList);
   } catch (error) {
-    errorMessageEvent('productsLoaded', error.message, form);
+    errorMessageEvent('productsLoaded', error.message, productList);
   } finally {
     dispatchCustomEvent('loadingProductsEnd', null, productList);
   }

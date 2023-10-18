@@ -1,5 +1,5 @@
 export const getProducts = async () => {
-  const url = 'http://localhost:8000/api/products';
+  const url = 'http://localhost:8000/api/products?_expand=user';
   try {
     const response = await fetch(url);
     const data = await response.json();

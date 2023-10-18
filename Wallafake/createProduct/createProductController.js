@@ -9,7 +9,7 @@ import { enableForm } from '../utils/enableForm.js';
 
 export const createProductController = (form) => {
   const token = localStorage.getItem('accessToken');
-  console.log(token);
+
   if (!token) {
     form.classList.remove('form');
     form.innerHTML = '';
