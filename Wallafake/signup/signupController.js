@@ -1,32 +1,42 @@
 import { registerUser } from './signupModel.js';
-import { dispatchEvent } from '../utils/createCustomEvent.js';
+import {
+  dispatchCustomEvent,
+  errorMessageEvent,
+  successMessageEvent,
+} from '../utils/customEvent.js';
 
-export const registerController = async (form) => {
-  const formData = new FormData(form);
+export const registerController = (form) => {
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
 
-  const user = {
-    username: formData.get('username'),
-    password: formData.get('password'),
-    repeatPassword: formData.get('repeatPassword'),
-  };
+    const formData = new FormData(form);
 
-  try {
-    if (isValidPassword(password, repeatPassword)) {
-      await registerUser(user);
-      dispatchEvent(
-        'signup',
-        { type: 'success', message: 'User successfully created' },
-        form
-      );
-      window.location.href = 'login.html';
-    } else {
-      throw new Error('Passwords do not match');
+    const data = getFormData(formData);
+    try {
+      if (isValidPassword(data.password, data.repeatPassword)) {
+        dispatchCustomEvent('signInStart', null, form);
+        await registerUser(data);
+        successMessageEvent('signup', 'User created', form);
+        window.location.href = 'login.html';
+      } else {
+        throw new Error('Passwords do not match');
+      }
+    } catch (error) {
+      errorMessageEvent('signup', error.message, form);
+    } finally {
+      dispatchCustomEvent('signInEnd', null, form);
     }
-  } catch (error) {
-    dispatchEvent('signup', { type: 'error', message: error.message }, form);
-  }
+  });
 };
 
 const isValidPassword = (password, repeatPassword) => {
   return password === repeatPassword;
+};
+
+const getFormData = (formData) => {
+  return {
+    username: formData.get('username'),
+    password: formData.get('password'),
+    repeatPassword: formData.get('repeatPassword'),
+  };
 };

@@ -1,5 +1,5 @@
 import { loginUser } from './loginModel.js';
-import { dispatchEvent } from '../utils/createCustomEvent.js';
+import { dispatchCustomEvent } from '../utils/customEvent.js';
 
 export const loginController = async (form) => {
   const formData = new FormData(form);
@@ -14,7 +14,7 @@ export const loginController = async (form) => {
 
     localStorage.setItem('accessToken', res.accessToken);
 
-    dispatchEvent(
+    dispatchCustomEvent(
       'login',
       { type: 'success', message: 'User logged in successfully' },
       form
@@ -24,7 +24,7 @@ export const loginController = async (form) => {
       window.location.href = '/';
     }, 1000);
   } catch (error) {
-    dispatchEvent(
+    dispatchCustomEvent(
       'login',
       {
         type: 'error',

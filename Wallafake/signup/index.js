@@ -1,16 +1,25 @@
 import { registerController } from './signupController.js';
 import { notificationController } from '../notifications/notificationsController.js';
+import { spinnerController } from '../spinner/spinnerController.js';
 
-const registerForm = document.getElementById('register-form');
-const notifications = document.getElementById('notifications');
+document.addEventListener('DOMContentLoaded', () => {
+  const registerForm = document.getElementById('register-form');
+  const notifications = document.getElementById('notifications');
+  const spinner = document.getElementById('spinner');
+  const showNotification = notificationController(notifications);
+  const { showSpinner, hideSpinner } = spinnerController(spinner);
 
-const showNotification = notificationController(notifications);
+  registerForm.addEventListener('signup', (e) => {
+    showNotification(e.detail.message, e.detail.type);
+  });
 
-registerForm.addEventListener('submit', (e) => {
-  e.preventDefault();
+  registerForm.addEventListener('signInStart', () => {
+    showSpinner();
+  });
+
+  registerForm.addEventListener('signInEnd', () => {
+    hideSpinner();
+  });
+
   registerController(registerForm);
-});
-
-registerForm.addEventListener('signup', (e) => {
-  showNotification(e.detail.message, e.detail.type);
 });
