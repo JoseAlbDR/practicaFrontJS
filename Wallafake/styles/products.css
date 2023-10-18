@@ -13,6 +13,7 @@ h1 {
   gap: 2rem;
   /* grid-template-rows: 1fr auto; */
   width: 100%;
+  padding: 2rem;
 }
 
 .on,
@@ -34,8 +35,9 @@ h1 {
 }
 
 .img {
-  min-height: 30vh;
+  width: 100%;
   border-radius: var(--border-radius);
+  flex: 1;
 }
 
 .product a {
@@ -48,19 +50,25 @@ h1 {
   border: 1px solid black;
   box-shadow: var(--shadow-2);
   border-radius: var(--border-radius);
+  height: 100%;
   width: 300px;
 }
 
 .product a .product-content {
   display: flex;
   flex-direction: column;
+  flex: 1;
 }
 
 @media (width > 768px) {
   .product.product-detail a {
     flex-direction: row;
-    width: 100%;
+    width: 768px;
     align-items: center;
-    justify-content: center;
+    justify-content: space-around;
+  }
+
+  .product.product-detail a .img {
+    max-width: 50%;
   }
 }
