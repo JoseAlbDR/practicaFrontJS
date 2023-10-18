@@ -27,8 +27,8 @@ export const loginController = async (form) => {
     } catch (error) {
       errorMessageEvent('login', error.message, form);
     } finally {
-      dispatchCustomEvent('loginEnd', null, form);
       enableForm(form);
+      dispatchCustomEvent('loginEnd', null, form);
     }
   });
 };
