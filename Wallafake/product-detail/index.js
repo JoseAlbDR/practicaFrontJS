@@ -4,7 +4,7 @@ import { productDetailController } from './productDetailController.js';
 document.addEventListener('DOMContentLoaded', () => {
   const menuContainer = document.getElementById('menu');
   menuController(menuContainer, '');
-  const productDetail = document.getElementById('product-detail');
+  const productDetail = document.getElementById('productDetail');
 
   productDetailController(productDetail);
 });
