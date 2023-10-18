@@ -43,3 +43,7 @@
   color: var(--primary-300);
   margin-left: 0.5rem;
 }
+
+.already-member a.home-link {
+  margin-left: 0;
+}
