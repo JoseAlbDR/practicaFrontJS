@@ -13,11 +13,11 @@ document.addEventListener('DOMContentLoaded', () => {
     showNotification(e.detail.message, e.detail.type);
   });
 
-  registerForm.addEventListener('signInStart', () => {
+  registerForm.addEventListener('signUpStart', () => {
     showSpinner();
   });
 
-  registerForm.addEventListener('signInEnd', () => {
+  registerForm.addEventListener('signUpEnd', () => {
     hideSpinner();
   });
 

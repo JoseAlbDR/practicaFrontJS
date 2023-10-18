@@ -1,36 +1,30 @@
 import { loginUser } from './loginModel.js';
-import { dispatchCustomEvent } from '../utils/customEvent.js';
+import {
+  dispatchCustomEvent,
+  errorMessageEvent,
+  successMessageEvent,
+} from '../utils/customEvent.js';
 
 export const loginController = async (form) => {
-  const formData = new FormData(form);
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const formData = new FormData(form);
 
-  const user = {
-    username: formData.get('username'),
-    password: formData.get('password'),
-  };
+    const user = {
+      username: formData.get('username'),
+      password: formData.get('password'),
+    };
 
-  try {
-    const res = await loginUser(user);
-
-    localStorage.setItem('accessToken', res.accessToken);
-
-    dispatchCustomEvent(
-      'login',
-      { type: 'success', message: 'User logged in successfully' },
-      form
-    );
-
-    setTimeout(() => {
+    try {
+      dispatchCustomEvent('loginStart', null, form);
+      const res = await loginUser(user);
+      localStorage.setItem('accessToken', res.accessToken);
+      successMessageEvent('login', 'User logged in', form);
       window.location.href = '/';
-    }, 1000);
-  } catch (error) {
-    dispatchCustomEvent(
-      'login',
-      {
-        type: 'error',
-        message: error.message || 'Error logging in, try again later',
-      },
-      form
-    );
-  }
+    } catch (error) {
+      errorMessageEvent('login', error.message, form);
+    } finally {
+      dispatchCustomEvent('loginEnd', null, form);
+    }
+  });
 };

@@ -8,13 +8,12 @@ import {
 export const registerController = (form) => {
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
-
     const formData = new FormData(form);
-
     const data = getFormData(formData);
+
     try {
       if (isValidPassword(data.password, data.repeatPassword)) {
-        dispatchCustomEvent('signInStart', null, form);
+        dispatchCustomEvent('signUpStart', null, form);
         await registerUser(data);
         successMessageEvent('signup', 'User created', form);
         window.location.href = 'login.html';
@@ -24,7 +23,7 @@ export const registerController = (form) => {
     } catch (error) {
       errorMessageEvent('signup', error.message, form);
     } finally {
-      dispatchCustomEvent('signInEnd', null, form);
+      dispatchCustomEvent('signUpEnd', null, form);
     }
   });
 };
