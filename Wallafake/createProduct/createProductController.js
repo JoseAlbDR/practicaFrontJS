@@ -8,11 +8,22 @@ import { disableForm } from '../utils/disableForm.js';
 import { enableForm } from '../utils/enableForm.js';
 
 export const createProductController = (form) => {
+  const token = localStorage.getItem('accessToken');
+  console.log(token);
+  if (!token) {
+    form.classList.remove('form');
+    form.innerHTML = '';
+    errorMessageEvent('create-product', 'Please first login', form);
+    setTimeout(() => {
+      window.location.href = '/';
+    }, 10000);
+  }
+
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
     const formData = new FormData(form);
     const data = getCreateProductFormData(formData);
-    const token = localStorage.getItem('accessToken');
+
     try {
       dispatchCustomEvent('createProductStart', null, form);
       disableForm(form);
