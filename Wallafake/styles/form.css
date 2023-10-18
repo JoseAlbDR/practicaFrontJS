@@ -47,3 +47,10 @@
 .already-member a.home-link {
   margin-left: 0;
 }
+
+[disabled] {
+  color: #777;
+  background-color: #eee;
+  border: 1px solid #ccc;
+  cursor: not-allowed;
+}

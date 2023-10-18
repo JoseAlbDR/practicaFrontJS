@@ -11,7 +11,7 @@ export const registerController = (form) => {
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
     const formData = new FormData(form);
-    const data = getFormData(formData);
+    const data = getSignupFormData(formData);
 
     try {
       if (isValidPassword(data.password, data.repeatPassword)) {
@@ -36,7 +36,7 @@ const isValidPassword = (password, repeatPassword) => {
   return password === repeatPassword;
 };
 
-const getFormData = (formData) => {
+const getSignupFormData = (formData) => {
   return {
     username: formData.get('username'),
     password: formData.get('password'),
