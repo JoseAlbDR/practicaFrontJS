@@ -176,6 +176,15 @@ ul {
   width: 100%;
 }
 
+.danger-btn {
+  color: var(--red-dark);
+  background: var(--red-light);
+}
+.danger-btn:hover {
+  color: var(--red-light);
+  background: var(--red-dark);
+}
+
 /* Alerts */
 .alert {
   padding: 0.375rem 0.75rem;

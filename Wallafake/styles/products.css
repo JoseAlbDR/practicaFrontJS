@@ -38,7 +38,7 @@ h1 {
   flex: 1;
 }
 
-.product a {
+.product .product-card {
   position: relative;
   padding: 2rem 1rem;
   background: #fff;
@@ -52,21 +52,21 @@ h1 {
   width: 300px;
 }
 
-.product a .product-content {
+.product .product-card .product-content {
   display: flex;
   flex-direction: column;
   flex: 1;
 }
 
 @media (width > 768px) {
-  .product.product-detail a {
+  .product.product-detail .product-card {
     flex-direction: row;
     width: 768px;
     align-items: center;
     justify-content: space-around;
   }
 
-  .product.product-detail a .img {
+  .product.product-detail .product-card .img {
     max-width: 50%;
   }
 }
