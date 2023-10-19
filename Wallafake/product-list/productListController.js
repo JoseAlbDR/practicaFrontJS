@@ -1,7 +1,4 @@
-import {
-  dispatchCustomEvent,
-  errorMessageEvent,
-} from '../utils/customEvent.js';
+import { dispatchCustomEvent, errorMessageEvent } from '../utils/index.js';
 import { getProducts } from './productListModel.js';
 import { buildProduct, emptyProducts } from './productsListView.js';
 

@@ -3,9 +3,9 @@ import {
   dispatchCustomEvent,
   errorMessageEvent,
   successMessageEvent,
-} from '../utils/customEvent.js';
-import { disableForm } from '../utils/disableForm.js';
-import { enableForm } from '../utils/enableForm.js';
+  disableForm,
+  enableForm,
+} from '../utils/index.js';
 
 export const createProductController = (form) => {
   const token = localStorage.getItem('accessToken');

@@ -1,8 +1,5 @@
 import { buildProduct } from '../product-list/productsListView.js';
-import {
-  dispatchCustomEvent,
-  errorMessageEvent,
-} from '../utils/customEvent.js';
+import { dispatchCustomEvent, errorMessageEvent } from '../utils/index.js';
 // import { decodeToken } from '../utils/decodeToken.js';
 import { getProduct } from './productDetailModel.js';
 

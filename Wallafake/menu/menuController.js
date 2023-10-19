@@ -1,5 +1,6 @@
 import { buildMenuItem } from './menuView.js';
 import { authenticatedItems, unauthenticatedItems } from './menuModel.js';
+
 export const menuController = (menuContainer, activeItem) => {
   if (localStorage.getItem('accessToken')) {
     renderMenuItems(menuContainer, authenticatedItems, activeItem);
