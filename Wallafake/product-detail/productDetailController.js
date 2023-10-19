@@ -14,7 +14,7 @@ export const productDetailController = async (productDetail, productId) => {
     dispatchCustomEvent('loadingProductStart', null, productDetail);
     const product = await getProduct(productId);
     renderProduct(product, productDetail);
-    if (userData.userId === product.user.id) {
+    if (userData?.userId === product.user.id) {
       const deleteButton = addDeleteButton(productDetail);
       deleteButton.addEventListener('click', async () => {
         if (confirm('Are you sure you want to delete'))
