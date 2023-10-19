@@ -58,10 +58,6 @@
 }
 
 @media (width > 1120px) {
-  .content {
-    grid-template-columns: 300px 1fr;
-  }
-
   #search-form.form {
     grid-row: 2;
     align-self: self-start;

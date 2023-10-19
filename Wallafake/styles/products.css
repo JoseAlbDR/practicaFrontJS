@@ -12,6 +12,7 @@ h1 {
   gap: 2rem;
   /* grid-template-rows: 1fr auto; */
   width: 100%;
+  background: var(--backgroundColor);
 }
 
 .on,
