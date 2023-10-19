@@ -10,14 +10,7 @@ import {
 export const createProductController = (form) => {
   const token = localStorage.getItem('accessToken');
 
-  if (!token) {
-    form.classList.remove('form');
-    form.innerHTML = '';
-    errorMessageEvent('create-product', 'Please first login', form);
-    setTimeout(() => {
-      window.location.href = '/';
-    }, 10000);
-  }
+  checkAuth(token, form);
 
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
@@ -30,6 +23,9 @@ export const createProductController = (form) => {
       await createProduct(data, token);
       successMessageEvent('create-product', 'Product created', form);
       form.reset();
+      setTimeout(() => {
+        window.location.href = '/';
+      }, 1000);
     } catch (error) {
       errorMessageEvent('create-product', error.message, form);
     } finally {
@@ -47,4 +43,15 @@ const getCreateProductFormData = (formData) => {
     price: +formData.get('price'),
     for: formData.get('type'),
   };
+};
+
+const checkAuth = (token, form) => {
+  if (!token) {
+    form.classList.remove('form');
+    form.innerHTML = '';
+    errorMessageEvent('create-product', 'Please first login', form);
+    setTimeout(() => {
+      window.location.href = '/';
+    }, 1000);
+  }
 };
