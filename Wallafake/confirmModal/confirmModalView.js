@@ -1,6 +1,6 @@
 export const buildModal = (message) => {
   return `
-    <div class="modal-content>
+    <div class="modal-content">
       <header class="modal-header">
         <h5>${message}</h5>
         <p>This operation cant be undone</p>

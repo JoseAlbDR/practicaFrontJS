@@ -1,4 +1,4 @@
-import { buildModal } from './confirmModalView';
+import { buildModal } from './confirmModalView.js';
 
 export const confirmModalController = (modal) => {
   const showModal = (message) => {

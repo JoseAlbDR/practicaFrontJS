@@ -30,6 +30,10 @@
   gap: 1rem;
 }
 
+.modal-header h5 {
+  margin-bottom: 0;
+}
+
 .modal-buttons {
   display: flex;
   /* flex-direction: column; */
