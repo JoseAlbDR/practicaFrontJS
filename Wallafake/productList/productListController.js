@@ -2,11 +2,12 @@ import { dispatchCustomEvent, errorMessageEvent } from '../utils/index.js';
 import { getProducts } from './productListModel.js';
 import { buildProduct, emptyProducts } from './productsListView.js';
 
-export const productListController = async (productList, params) => {
+export const productListController = async (productList, params, quantity) => {
   let products = [];
   try {
     dispatchCustomEvent('loadingProductsStart', null, productList);
     products = await getProducts(params);
+    quantity.innerText = products.length;
     if (products.length === 0) {
       productList.innerHTML = emptyProducts();
       return;

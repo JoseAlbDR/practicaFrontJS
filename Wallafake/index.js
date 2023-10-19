@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const notifications = document.getElementById('notifications');
   const spinner = document.getElementById('spinner');
   const resetBtn = document.getElementById('reset-btn');
-  const searchForm = document.getElementById('search-form');
+  const quantity = document.getElementById('products-quantity');
   const showNotification = notificationController(notifications);
   const { showSpinner, hideSpinner } = spinnerController(spinner);
 
@@ -35,7 +35,7 @@ document.addEventListener('DOMContentLoaded', () => {
     hideSpinner();
   });
 
-  productListController(productList, searchParams);
+  productListController(productList, searchParams, quantity);
 });
 
 const getSearchParams = () => {
