@@ -1,13 +1,18 @@
-import { buildProduct } from '../product-list/productsListView.js';
 import { dispatchCustomEvent, errorMessageEvent } from '../utils/index.js';
-// import { decodeToken } from '../utils/decodeToken.js';
+import { decodeToken } from '../utils/decodeToken.js';
 import { getProduct } from './productDetailModel.js';
+import { buildProduct } from './productDetailView.js';
 
-export const productDetailController = async (productDetail, id) => {
+export const productDetailController = async (productDetail, productId) => {
+  const userData = decodeToken(localStorage.getItem('accessToken'));
+
   try {
     dispatchCustomEvent('loadingProductStart', null, productDetail);
-    const product = await getProduct(id);
+    const product = await getProduct(productId);
     renderProduct(product, productDetail);
+    if (userData.userId === product.user.id) {
+      addDeleteButton(productDetail);
+    }
   } catch (error) {
     setTimeout(() => {
       window.location.href = '/';
@@ -24,6 +29,17 @@ const renderProduct = (product, productDetail) => {
   productContainer.classList.add('product-detail');
   productContainer.innerHTML = buildProduct(product);
   productDetail.appendChild(productContainer);
+};
+
+export const addDeleteButton = (productDetail) => {
+  const deleteButton = document.createElement('button');
+  deleteButton.textContent = 'Delete Product';
+  deleteButton.classList.add('btn');
+  deleteButton.classList.add('danger-btn');
+  const productContent = productDetail.querySelector('.product-content');
+  productContent.appendChild(deleteButton);
+
+  deleteButton.addEventListener('click', () => {});
 };
 
 // const handleDeleteTweet = (createdBy) => {
