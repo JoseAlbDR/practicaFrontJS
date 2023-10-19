@@ -14,21 +14,24 @@
     <nav id="menu" class="menu"></nav>
     <section id="notifications"></section>
     <div class="content">
-      <form id="search-form" class="form">
+      <form method="get" id="search-form" class="form" action="">
         <h4 class="form-title">Search</h4>
         <div class="form-row">
-          <label class="form-label" for="name"> User Name </label>
+          <label class="form-label" for="name"> Product Name </label>
           <input
             class="form-input"
             type="text"
-            id="name"
-            name="username"
+            id="productName"
+            name="name"
             minlength="3"
             required
           />
         </div>
         <button type="submit" class="btn btn-block form-btn" id="search-btn">
           Submit
+        </button>
+        <button type="reset" class="btn btn-block form-btn" id="reset-btn">
+          Reset
         </button>
       </form>
       <h1>Product List</h1>

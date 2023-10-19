@@ -42,6 +42,7 @@ const renderProduct = (product, productDetail) => {
 export const addDeleteButton = (productDetail) => {
   const deleteButton = document.createElement('button');
   deleteButton.textContent = 'Delete Product';
+  deleteButton.id = 'delete-product-btn';
   deleteButton.classList.add('btn');
   deleteButton.classList.add('danger-btn');
   const productContent = productDetail.querySelector('.product-content');

@@ -4,6 +4,7 @@ export const confirmModalController = (modal) => {
   const showModal = (message, handler) => {
     const modalContainer = document.createElement('div');
     modalContainer.classList.add('confirm-modal');
+    modalContainer.id = 'modal';
     modalContainer.innerHTML = buildModal(message);
     modal.appendChild(modalContainer);
 
@@ -17,6 +18,13 @@ export const confirmModalController = (modal) => {
 
     cancelBtn.addEventListener('click', () => {
       modal.innerHTML = '';
+    });
+
+    document.addEventListener('click', (e) => {
+      const targetId = e.target.id;
+      if (targetId === 'modal' || targetId === 'cancel-btn')
+        modal.innerHTML = '';
+      return;
     });
   };
 
