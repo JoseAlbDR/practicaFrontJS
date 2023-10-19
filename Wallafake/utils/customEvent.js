@@ -1,8 +1,9 @@
-const createCustomEvent = (name, { type, message }) => {
+const createCustomEvent = (name, { type, message, handler }) => {
   const event = new CustomEvent(name, {
     detail: {
-      type: type,
-      message: message,
+      type,
+      message,
+      handler,
     },
   });
   return event;

@@ -9,7 +9,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const productDetail = document.getElementById('productDetail');
   const spinner = document.getElementById('spinner');
   const modal = document.getElementById('modal');
-
   const showModal = confirmModalController(modal);
   const showNotification = notificationController(notifications);
   const { showSpinner, hideSpinner } = spinnerController(spinner);
@@ -28,7 +27,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   productDetail.addEventListener('confirmDeleteProduct', (e) => {
-    showModal('Are you sure you want to delete the product?');
+    showModal('Are you sure you want to delete the product?', e.detail.handler);
   });
 
   productDetail.addEventListener('loadingProductStart', () => {

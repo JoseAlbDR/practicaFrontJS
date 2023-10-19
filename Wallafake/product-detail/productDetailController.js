@@ -17,9 +17,8 @@ export const productDetailController = async (productDetail, productId) => {
     if (userData?.userId === product.user.id) {
       const deleteButton = addDeleteButton(productDetail);
       deleteButton.addEventListener('click', async () => {
-        // if (confirm('Are you sure you want to delete'))
-        dispatchCustomEvent('confirmDeleteProduct', null, productDetail);
-        // await handleDeleteProduct(productId, productDetail);
+        const handler = () => handleDeleteProduct(productId, productDetail);
+        dispatchCustomEvent('confirmDeleteProduct', { handler }, productDetail);
       });
     }
   } catch (error) {
