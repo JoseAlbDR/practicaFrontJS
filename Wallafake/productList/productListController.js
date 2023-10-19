@@ -12,6 +12,7 @@ export const productListController = async (productList, params, quantity) => {
       productList.innerHTML = emptyProducts();
       return;
     }
+    productList.innerHTML = '';
     renderProducts(products, productList);
   } catch (error) {
     errorMessageEvent('productsLoaded', error.message, productList);

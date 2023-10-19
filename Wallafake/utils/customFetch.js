@@ -1,4 +1,4 @@
-import { BASE_URL } from './index.js';
+import { BASE_URL, LIMIT } from './index.js';
 
 export const customFetch = {
   get: async (endPoint) => {

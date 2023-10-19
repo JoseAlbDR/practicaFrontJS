@@ -3,6 +3,7 @@ import { notificationController } from './notifications/notificationsController.
 import { menuController } from './menu/menuController.js';
 import { spinnerController } from './spinner/spinnerController.js';
 import { paginationController } from './pagination/paginationController.js';
+import { getSearchParams } from './utils/index.js';
 
 document.addEventListener('DOMContentLoaded', () => {
   const productList = document.getElementById('products');
@@ -14,7 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const showNotification = notificationController(notifications);
   const { showSpinner, hideSpinner } = spinnerController(spinner);
 
-  const searchParams = getSearchParams();
+  let searchParams = getSearchParams();
 
   resetBtn.addEventListener('click', () => {
     const url = new URL(window.location.href);
@@ -37,17 +38,11 @@ document.addEventListener('DOMContentLoaded', () => {
     hideSpinner();
   });
 
-  paginationController(pagination);
-  productListController(productList, searchParams, quantity);
-});
-
-const getSearchParams = () => {
-  const queryString = window.location.search;
-  const searchParams = new URLSearchParams(queryString);
-  const params = {};
-  searchParams.forEach((value, key) => {
-    params[key] = value;
+  pagination.addEventListener('pageChanged', () => {
+    searchParams = getSearchParams();
+    productListController(productList, searchParams, quantity);
   });
 
-  return params;
-};
+  paginationController(pagination, searchParams);
+  productListController(productList, searchParams, quantity);
+});

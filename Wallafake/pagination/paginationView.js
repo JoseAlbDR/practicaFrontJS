@@ -1,6 +1,7 @@
-export const buildPagination = () => {
+export const buildPagination = (page) => {
   return `
-    <button id="next-page" class="btn prev-btn">Previous Page</button>
-    <button id="previous-page" class="btn next-btn">Next Page</button>
+    <button type="submit" id="previous-page" class="btn prev-btn">Previous Page</button>
+    <button id="current-page" class="btn page-btn">${page}</button>
+    <button type="submit" id="next-page" class="btn next-btn">Next Page</button>
   `;
 };
