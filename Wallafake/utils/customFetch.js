@@ -17,14 +17,22 @@ export const customFetch = {
       throw error;
     }
   },
-  post: async (endPoint, options) => {
+  post: async (endPoint, payload) => {
     const url = BASE_URL + endPoint;
+
+    const headers = {
+      'Content-Type': 'application/json',
+    };
+
+    const { body, auth } = payload;
+
+    if (auth) {
+      headers.Authorization = auth;
+    }
 
     const requestOptions = {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
+      headers,
       body: JSON.stringify(body),
     };
 
