@@ -1,3 +1,4 @@
+export { customFetch } from './customFetch.js';
 export { BASE_URL } from './const.js';
 export { disableForm } from './disableForm.js';
 export { enableForm } from './enableForm.js';
