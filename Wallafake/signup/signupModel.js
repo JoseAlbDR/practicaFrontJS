@@ -1,22 +1,8 @@
+import { customFetch } from '../utils/index.js';
+
 export const registerUser = async (userData) => {
   const user = { username: userData.username, password: userData.password };
+  const endPoint = '/auth/register';
 
-  const url = 'http://localhost:8000/auth/register';
-  const requestOptions = {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(user),
-  };
-
-  try {
-    const response = await fetch(url, requestOptions);
-    if (!response.ok) {
-      const data = await response.json();
-      throw new Error(data.message);
-    }
-  } catch (error) {
-    throw error;
-  }
+  customFetch.post(endPoint, user);
 };
