@@ -24,10 +24,14 @@
   transition: var(--transition);
 }
 
-.menu-items a:hover,
-.menu-items a.active {
+.menu-items a:hover {
   transform: translateY(-10px);
   color: var(--primary-500);
+}
+
+.menu-items a.active {
+  color: var(--primary-500);
+  border-bottom: 2px solid var(--primary-500);
 }
 
 @media (width < 768px) {
