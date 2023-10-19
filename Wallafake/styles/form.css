@@ -5,6 +5,11 @@
   padding: 1.5rem;
 }
 
+.content .header {
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
 .create-content {
   height: initial;
 }
@@ -63,7 +68,7 @@
     align-self: self-start;
   }
 
-  .content h1 {
+  .content .header {
     grid-column: span 5;
   }
 }

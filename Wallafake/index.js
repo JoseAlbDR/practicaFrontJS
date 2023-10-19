@@ -2,6 +2,7 @@ import { productListController } from './productList/productListController.js';
 import { notificationController } from './notifications/notificationsController.js';
 import { menuController } from './menu/menuController.js';
 import { spinnerController } from './spinner/spinnerController.js';
+import { paginationController } from './pagination/paginationController.js';
 
 document.addEventListener('DOMContentLoaded', () => {
   const productList = document.getElementById('products');
@@ -9,6 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const spinner = document.getElementById('spinner');
   const resetBtn = document.getElementById('reset-btn');
   const quantity = document.getElementById('products-quantity');
+  const pagination = document.getElementById('pagination');
   const showNotification = notificationController(notifications);
   const { showSpinner, hideSpinner } = spinnerController(spinner);
 
@@ -35,6 +37,7 @@ document.addEventListener('DOMContentLoaded', () => {
     hideSpinner();
   });
 
+  paginationController(pagination);
   productListController(productList, searchParams, quantity);
 });
 
