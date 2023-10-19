@@ -17,8 +17,9 @@ export const customFetch = {
       throw error;
     }
   },
-  post: async (endPoint, body) => {
+  post: async (endPoint, options) => {
     const url = BASE_URL + endPoint;
+
     const requestOptions = {
       method: 'POST',
       headers: {
@@ -36,6 +37,28 @@ export const customFetch = {
         );
       }
       return data;
+    } catch (error) {
+      throw error;
+    }
+  },
+  delete: async (endPoint) => {
+    const url = BASE_URL + endPoint;
+    const token = localStorage.getItem('accessToken');
+    const requestOptions = {
+      method: 'DELETE',
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+    try {
+      const response = await fetch(url, requestOptions);
+
+      if (!response.ok) {
+        const data = await response.json();
+        throw new Error(
+          data.message || 'Error deleting product, try again later'
+        );
+      }
     } catch (error) {
       throw error;
     }

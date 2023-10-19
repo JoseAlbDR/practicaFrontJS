@@ -19,6 +19,10 @@ document.addEventListener('DOMContentLoaded', () => {
     showNotification(e.detail.message, e.detail.type);
   });
 
+  productDetail.addEventListener('productDeleted', (e) => {
+    showNotification(e.detail.message, e.detail.type);
+  });
+
   productDetail.addEventListener('loadingProductStart', () => {
     showSpinner();
   });

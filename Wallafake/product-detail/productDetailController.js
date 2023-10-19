@@ -1,6 +1,10 @@
-import { dispatchCustomEvent, errorMessageEvent } from '../utils/index.js';
+import {
+  dispatchCustomEvent,
+  errorMessageEvent,
+  successMessageEvent,
+} from '../utils/index.js';
 import { decodeToken } from '../utils/decodeToken.js';
-import { getProduct } from './productDetailModel.js';
+import { deleteProduct, getProduct } from './productDetailModel.js';
 import { buildProduct } from './productDetailView.js';
 
 export const productDetailController = async (productDetail, productId) => {
@@ -11,7 +15,11 @@ export const productDetailController = async (productDetail, productId) => {
     const product = await getProduct(productId);
     renderProduct(product, productDetail);
     if (userData.userId === product.user.id) {
-      addDeleteButton(productDetail);
+      const deleteButton = addDeleteButton(productDetail);
+      deleteButton.addEventListener('click', async () => {
+        confirm('Are you sure you want to delete');
+        handleDeleteProduct(productId, productDetail);
+      });
     }
   } catch (error) {
     setTimeout(() => {
@@ -38,25 +46,17 @@ export const addDeleteButton = (productDetail) => {
   deleteButton.classList.add('danger-btn');
   const productContent = productDetail.querySelector('.product-content');
   productContent.appendChild(deleteButton);
-
-  deleteButton.addEventListener('click', () => {});
+  return deleteButton;
 };
 
-// const handleDeleteTweet = (createdBy) => {
-//   const token = localStorage.getItem('accessToken');
-//   if (token) {
-//     const { userId } = decodeToken(token);
-
-//     if (userId === createdBy) {
-//     }
-//   }
-// };
-
-// const addDeleteButton = (productDetail) => {
-//   const deleteButton = document.createElement('button');
-//   deleteButton.textContent = 'Delete Product';
-
-//   productDetail.insertAdjacentHTML('beforeend', deleteButton);
-
-//   deleteButton.addEventListener('click', () => {});
-// };
+export const handleDeleteProduct = async (id, productDetail) => {
+  try {
+    await deleteProduct(id);
+    successMessageEvent('productDeleted', 'Product deleted', productDetail);
+    setTimeout(() => {
+      window.location.href = '/';
+    }, 2000);
+  } catch (error) {
+    errorMessageEvent('productDeleted', error.message, productDetail);
+  }
+};
