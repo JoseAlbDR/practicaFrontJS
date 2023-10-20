@@ -15,10 +15,15 @@ export const productDetailController = async (productDetail, productId) => {
     const product = await getProduct(productId);
     renderProduct(product, productDetail);
     if (userData?.userId === product.user.id) {
-      const deleteButton = addDeleteButton(productDetail);
+      const updateButton = addButton(productDetail, 'update');
+      const deleteButton = addButton(productDetail, 'delete');
       deleteButton.addEventListener('click', async () => {
         const handler = () => handleDeleteProduct(productId, productDetail);
         dispatchCustomEvent('confirmDeleteProduct', { handler }, productDetail);
+      });
+
+      updateButton.addEventListener('click', () => {
+        dispatchCustomEvent('updateProduct', null, productDetail);
       });
     }
   } catch (error) {
@@ -39,12 +44,14 @@ const renderProduct = (product, productDetail) => {
   productDetail.appendChild(productContainer);
 };
 
-export const addDeleteButton = (productDetail) => {
+export const addButton = (productDetail, type) => {
   const deleteButton = document.createElement('button');
-  deleteButton.textContent = 'Delete Product';
-  deleteButton.id = 'delete-product-btn';
+  deleteButton.textContent = `${type} Product`;
+  deleteButton.id = `${type}-product-btn`;
   deleteButton.classList.add('btn');
-  deleteButton.classList.add('danger-btn');
+  deleteButton.classList.add(
+    `${type === 'delete' ? 'danger-btn' : 'btn-block'}`
+  );
   const productContent = productDetail.querySelector('.product-content');
   productContent.appendChild(deleteButton);
   return deleteButton;
