@@ -23,7 +23,7 @@ export const productDetailController = async (productDetail, productId) => {
       });
 
       updateButton.addEventListener('click', () => {
-        dispatchCustomEvent('updateProduct', null, productDetail);
+        window.location.href = `/update-product.html?id=${productId}`;
       });
     }
   } catch (error) {

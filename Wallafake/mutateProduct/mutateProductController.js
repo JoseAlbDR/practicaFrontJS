@@ -1,4 +1,4 @@
-import { createProduct } from './createProductModel.js';
+import { createProduct } from './mutateProductModel.js';
 import {
   dispatchCustomEvent,
   errorMessageEvent,
