@@ -3,6 +3,7 @@ import { menuController } from '../menu/menuController.js';
 import { notificationController } from '../notifications/notificationsController.js';
 import { spinnerController } from '../spinner/spinnerController.js';
 import { productDetailController } from './productDetailController.js';
+import { getProductId } from '../utils/getProductId.js';
 
 document.addEventListener('DOMContentLoaded', () => {
   const notifications = document.getElementById('notifications');
@@ -40,10 +41,3 @@ document.addEventListener('DOMContentLoaded', () => {
 
   productDetailController(productDetail, id);
 });
-
-const getProductId = () => {
-  const queryString = window.location.search;
-  const searchParams = new URLSearchParams(queryString);
-  const id = searchParams.get('id');
-  return id;
-};
