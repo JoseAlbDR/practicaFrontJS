@@ -17,7 +17,6 @@ export const paginationController = async (pagination, params) => {
   prevBtn.addEventListener('click', () => {
     if (page === 1) return;
     page--;
-    console.log(page);
     currentPage.innerText = page;
     setUrlPagination(page);
     dispatchCustomEvent('pageChanged', null, pagination);
@@ -27,7 +26,6 @@ export const paginationController = async (pagination, params) => {
     const numPages = Math.ceil(numProducts / LIMIT);
     if (numPages === 0 || page === numPages) return;
     page++;
-    console.log(page);
     currentPage.innerText = page;
     setUrlPagination(page);
     dispatchCustomEvent('pageChanged', null, pagination);
