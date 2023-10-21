@@ -3,6 +3,7 @@ import {
   getProduct,
   updateProduct,
 } from './mutateProductModel.js';
+
 import {
   dispatchCustomEvent,
   errorMessageEvent,

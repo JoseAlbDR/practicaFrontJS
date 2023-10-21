@@ -15,8 +15,12 @@ export const productDetailController = async (productDetail, productId) => {
     const product = await getProduct(productId);
     renderProduct(product, productDetail);
     if (userData?.userId === product.user.id) {
-      const updateButton = addButton(productDetail, 'update');
-      const deleteButton = addButton(productDetail, 'delete');
+      const buttonsContainer = document.createElement('div');
+      buttonsContainer.classList.add('buttons-container');
+      const productContent = productDetail.querySelector('.product-content');
+      productContent.appendChild(buttonsContainer);
+      const updateButton = addButton(buttonsContainer, 'update');
+      const deleteButton = addButton(buttonsContainer, 'delete');
       deleteButton.addEventListener('click', async () => {
         const handler = () => handleDeleteProduct(productId, productDetail);
         dispatchCustomEvent('confirmDeleteProduct', { handler }, productDetail);
@@ -28,9 +32,9 @@ export const productDetailController = async (productDetail, productId) => {
     }
   } catch (error) {
     console.log(error);
-    setTimeout(() => {
-      window.location.href = '/';
-    }, 1000);
+    // setTimeout(() => {
+    //   window.location.href = '/';
+    // }, 1000);
     errorMessageEvent('productLoaded', error.message, productDetail);
   } finally {
     dispatchCustomEvent('loadingProductEnd', null, productDetail);
@@ -45,17 +49,14 @@ const renderProduct = (product, productDetail) => {
   productDetail.appendChild(productContainer);
 };
 
-export const addButton = (productDetail, type) => {
-  const deleteButton = document.createElement('button');
-  deleteButton.textContent = `${type} Product`;
-  deleteButton.id = `${type}-product-btn`;
-  deleteButton.classList.add('btn');
-  deleteButton.classList.add(
-    `${type === 'delete' ? 'danger-btn' : 'btn-block'}`
-  );
-  const productContent = productDetail.querySelector('.product-content');
-  productContent.appendChild(deleteButton);
-  return deleteButton;
+export const addButton = (container, type) => {
+  const button = document.createElement('button');
+  button.textContent = `${type} Product`;
+  button.id = `${type}-product-btn`;
+  button.classList.add('btn');
+  button.classList.add(`${type === 'delete' ? 'danger-btn' : 'btn-hipster'}`);
+  container.appendChild(button);
+  return button;
 };
 
 export const handleDeleteProduct = async (id, productDetail) => {

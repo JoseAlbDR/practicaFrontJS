@@ -60,6 +60,16 @@ h1 {
   padding: 1rem;
 }
 
+.buttons-container {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.buttons-container .btn {
+  width: 100%;
+}
+
 @media (width > 768px) {
   .product.product-detail .product-card {
     flex-direction: row;
