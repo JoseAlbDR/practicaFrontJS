@@ -18,58 +18,46 @@ export const createProductController = async (form, productId) => {
 
   if (productId) {
     const product = await getProduct(productId);
-
-    for (const key of Object.keys(product)) {
-      const selectElement = form.querySelector(`[name="${key}"]`);
-      if (key === 'for') {
-        selectOption(selectElement, product, key);
-      } else {
-        selectElement.value = product[key];
-      }
-    }
-
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const formData = new FormData(form);
-      const data = getProductFormData(formData);
-      try {
-        dispatchCustomEvent('updateProductStart', null, form);
-        disableForm(form);
-        await updateProduct(data, token, productId);
-        successMessageEvent('update-product', 'Product updated', form);
-        setTimeout(() => {
-          window.location.href = '/';
-        }, 1000);
-      } catch (error) {
-        errorMessageEvent('update-product', error.message, form);
-      } finally {
-        enableForm(form);
-        dispatchCustomEvent('updateProductEnd', null, form);
-      }
-    });
+    fillForm(product, form);
+    formSubmitListener(form, token);
   }
 
   if (!productId) {
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const formData = new FormData(form);
-      const data = getProductFormData(formData);
-      try {
-        dispatchCustomEvent('createProductStart', null, form);
-        disableForm(form);
-        await createProduct(data, token);
-        successMessageEvent('create-product', 'Product created', form);
-        form.reset();
-        setTimeout(() => {
-          window.location.href = '/';
-        }, 1000);
-      } catch (error) {
-        errorMessageEvent('create-product', error.message, form);
-      } finally {
-        enableForm(form);
-        dispatchCustomEvent('createProductEnd', null, form);
-      }
-    });
+    formSubmitListener(form, token);
+  }
+};
+
+const formSubmitListener = (form, token) => {
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const formData = new FormData(form);
+    const data = getProductFormData(formData);
+    try {
+      dispatchCustomEvent('createProductStart', null, form);
+      disableForm(form);
+      await createProduct(data, token);
+      successMessageEvent('create-product', 'Product created', form);
+      form.reset();
+      setTimeout(() => {
+        window.location.href = '/';
+      }, 1000);
+    } catch (error) {
+      errorMessageEvent('create-product', error.message, form);
+    } finally {
+      enableForm(form);
+      dispatchCustomEvent('createProductEnd', null, form);
+    }
+  });
+};
+
+const fillForm = (product, form) => {
+  for (const key of Object.keys(product)) {
+    const selectElement = form.querySelector(`[name="${key}"]`);
+    if (key === 'for') {
+      selectOption(selectElement, product, key);
+    } else {
+      selectElement.value = product[key];
+    }
   }
 };
 
@@ -86,7 +74,7 @@ const selectOption = (selectElement, product, key) => {
 const getProductFormData = (formData) => {
   return {
     image: formData.get('image'),
-    name: formData.get('name'),
+    name: formData.get('name').toLowerCase(),
     description: formData.get('description'),
     price: +formData.get('price'),
     for: formData.get('for'),

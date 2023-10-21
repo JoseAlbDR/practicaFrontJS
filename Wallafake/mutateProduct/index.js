@@ -19,12 +19,10 @@ document.addEventListener('DOMContentLoaded', () => {
   let mutationType;
 
   if (productId) {
-    const updateForm = document.getElementById('update-form');
-    currentProductForm = updateForm;
+    currentProductForm = document.getElementById('update-form');
     mutationType = 'update';
   } else {
-    const createForm = document.getElementById('create-form');
-    currentProductForm = createForm;
+    currentProductForm = document.getElementById('create-form');
     mutationType = 'create';
   }
 
