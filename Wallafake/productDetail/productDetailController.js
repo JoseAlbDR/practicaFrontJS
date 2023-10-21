@@ -27,9 +27,10 @@ export const productDetailController = async (productDetail, productId) => {
       });
     }
   } catch (error) {
+    console.log(error);
     setTimeout(() => {
       window.location.href = '/';
-    }, 2000);
+    }, 1000);
     errorMessageEvent('productLoaded', error.message, productDetail);
   } finally {
     dispatchCustomEvent('loadingProductEnd', null, productDetail);
@@ -63,7 +64,7 @@ export const handleDeleteProduct = async (id, productDetail) => {
     successMessageEvent('productDeleted', 'Product deleted', productDetail);
     setTimeout(() => {
       window.location.href = '/';
-    }, 2000);
+    }, 1000);
   } catch (error) {
     errorMessageEvent('productDeleted', error.message, productDetail);
   }
