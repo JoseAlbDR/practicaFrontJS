@@ -6,9 +6,11 @@ import { getProductId } from '../utils/getProductId.js';
 
 document.addEventListener('DOMContentLoaded', () => {
   const notifications = document.getElementById('notifications');
-  const showNotification = notificationController(notifications);
   const menuContainer = document.getElementById('menu');
   const spinner = document.getElementById('spinner');
+  const backBtn = document.getElementById('back-btn');
+
+  const showNotification = notificationController(notifications);
   const { showSpinner, hideSpinner } = spinnerController(spinner);
 
   const productId = getProductId();
@@ -38,6 +40,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
   currentProductForm.addEventListener(`${mutationType}ProductEnd`, () => {
     hideSpinner();
+  });
+
+  backBtn.addEventListener('click', () => {
+    window.history.back();
   });
 
   createProductController(currentProductForm, productId);
