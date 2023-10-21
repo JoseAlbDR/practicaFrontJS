@@ -19,33 +19,35 @@ export const createProductController = async (form, productId) => {
   if (productId) {
     const product = await getProduct(productId);
     fillForm(product, form);
-    formSubmitListener(form, token);
+    formSubmitListener(form, token, 'update', productId);
   }
 
   if (!productId) {
-    formSubmitListener(form, token);
+    formSubmitListener(form, token, 'create');
   }
 };
 
-const formSubmitListener = (form, token) => {
+const formSubmitListener = (form, token, type, productId) => {
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
     const formData = new FormData(form);
     const data = getProductFormData(formData);
     try {
-      dispatchCustomEvent('createProductStart', null, form);
+      dispatchCustomEvent(`${type}ProductStart`, null, form);
       disableForm(form);
-      await createProduct(data, token);
-      successMessageEvent('create-product', 'Product created', form);
+      type === 'create'
+        ? await createProduct(data, token)
+        : await updateProduct(data, token, productId);
+      successMessageEvent(`${type}-product`, `Product ${type}d`, form);
       form.reset();
       setTimeout(() => {
         window.location.href = '/';
       }, 1000);
     } catch (error) {
-      errorMessageEvent('create-product', error.message, form);
+      errorMessageEvent(`${type}-product`, error.message, form);
     } finally {
       enableForm(form);
-      dispatchCustomEvent('createProductEnd', null, form);
+      dispatchCustomEvent(`${type}ProductEnd`, null, form);
     }
   });
 };
