@@ -15,6 +15,10 @@ h1 {
   background: var(--backgroundColor);
 }
 
+.product-name {
+  text-transform: capitalize;
+}
+
 .on,
 .search {
   gap: 1rem;
@@ -80,5 +84,6 @@ h1 {
 
   .product.product-detail .product-card .img {
     max-width: 50%;
+    height: 100%;
   }
 }
