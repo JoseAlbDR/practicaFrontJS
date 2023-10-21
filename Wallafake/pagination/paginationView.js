@@ -1,7 +1,39 @@
-export const buildPagination = (page) => {
-  return `
-    <button type="submit" id="previous-page" class="btn prev-btn">Previous Page</button>
-    <button id="current-page" class="btn page-btn">${page}</button>
-    <button type="submit" id="next-page" class="btn next-btn">Next Page</button>
-  `;
+export const buildPagination = (pageButtons, pagination) => {
+  pagination.innerHTML = '';
+  const prevButton = buildStepButton('prev');
+  const nextButton = buildStepButton('next');
+  const btnContainer = document.createElement('div');
+  btnContainer.classList.add('btn-container');
+
+  pageButtons.forEach((button) => {
+    btnContainer.appendChild(button);
+  });
+
+  pagination.appendChild(prevButton);
+  pagination.appendChild(btnContainer);
+  pagination.appendChild(nextButton);
+};
+
+export const addPageButton = ({ pageNumber, activeClass }) => {
+  const button = document.createElement('button');
+  button.classList.add('btn', 'page-btn');
+  if (activeClass) button.classList.add('active');
+  button.textContent = pageNumber;
+  return button;
+};
+
+export const addDots = () => {
+  const dots = document.createElement('span');
+  dots.classList.add('page-btn', 'dots');
+  dots.textContent = '...';
+  return dots;
+};
+
+const buildStepButton = (type) => {
+  const button = document.createElement('button');
+  button.id = `${type}-page`;
+  button.type = 'submit';
+  button.classList.add('btn', `${type}-btn`);
+  button.innerText = `${type} Page`;
+  return button;
 };
