@@ -49,6 +49,34 @@ export const customFetch = {
       throw error;
     }
   },
+  patch: async (endPoint, payload) => {
+    const url = BASE_URL + endPoint;
+
+    const headers = {
+      'Content-Type': 'application/json',
+    };
+
+    const { body, auth } = payload;
+
+    const requestOptions = {
+      method: 'PATCH',
+      headers,
+      body: JSON.stringify(body),
+    };
+
+    try {
+      const response = await fetch(url, requestOptions);
+      const data = await response.json();
+      if (!response.ok) {
+        throw new Error(
+          data.message || 'Error updating product, try again later'
+        );
+      }
+      return data;
+    } catch (error) {
+      throw error;
+    }
+  },
   delete: async (endPoint) => {
     const url = BASE_URL + endPoint;
     const token = localStorage.getItem('accessToken');
