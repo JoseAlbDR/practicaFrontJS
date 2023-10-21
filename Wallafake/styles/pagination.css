@@ -1,9 +1,9 @@
 .pagination {
   height: 100%;
-  /* width: 100%; */
+  width: 100%;
   display: flex;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: center;
   flex-wrap: wrap;
   gap: 1rem;
   margin: 2rem 0;
@@ -17,6 +17,12 @@
   font-weight: 700;
   width: 50px;
   height: 40px;
+}
+
+.dots {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .prev-btn,
@@ -35,6 +41,11 @@
 
 .prev-btn:hover,
 .next-btn:hover {
+  background: var(--primary-500);
+  color: var(--white);
+}
+
+.pagination .active {
   background: var(--primary-500);
   color: var(--white);
 }
