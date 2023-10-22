@@ -4,24 +4,24 @@ import { getNumProducts } from './paginationModel.js';
 import { addDots, addPageButton, buildPagination } from './paginationView.js';
 
 export const paginationController = async (pagination, params) => {
+  // Get num products to calculate num pages
   const numProducts = await getNumProducts(params);
   const numPages = Math.ceil(numProducts / LIMIT);
   if (numPages < 2) return;
 
+  // Get current page from url, default 1 if no page
   let page = +getPage() || 1;
+
+  // Build numbered page buttons
   const pageButtons = buildPageButtons(numPages, page, pagination);
 
-  buildPagination(pageButtons, pagination);
+  pagination.innerHTML = '';
 
-  const prevBtn = pagination.querySelector('#prev-page');
-  const nextBtn = pagination.querySelector('#next-page');
-  const currentPage = pagination.querySelector('.btn-container');
+  // Create prev and next buttons and render all buttons
+  const { prevButton, nextButton } = buildPagination(pageButtons, pagination);
 
-  pageButtons.forEach((button) => {
-    currentPage.appendChild(button);
-  });
-
-  prevBtn.addEventListener('click', () => {
+  // Prev and Next buttons event listeners
+  prevButton.addEventListener('click', () => {
     if (page === 1) return;
     page--;
     setUrlPagination(page);
@@ -30,7 +30,7 @@ export const paginationController = async (pagination, params) => {
     paginationController(pagination, searchParams);
   });
 
-  nextBtn.addEventListener('click', () => {
+  nextButton.addEventListener('click', () => {
     if (numPages === 0 || page === numPages) return;
     page++;
     setUrlPagination(page);
@@ -57,12 +57,12 @@ const addClickListener = (button, page, pagination) =>
 const buildPageButtons = (numOfPages, currentPage, pagination) => {
   const pageBtns = [];
 
+  // first page
   const firstPageButton = addPageButton({
     pageNumber: 1,
     activeClass: currentPage === 1,
   });
   addClickListener(firstPageButton, 1, pagination);
-  // first page
   pageBtns.push(firstPageButton);
 
   // dots
@@ -100,15 +100,16 @@ const buildPageButtons = (numOfPages, currentPage, pagination) => {
     pageBtns.push(button);
   }
 
+  // dots
   if (currentPage < numOfPages - 2) {
     pageBtns.push(addDots());
   }
 
+  // last page
   const button = addPageButton({
     pageNumber: numOfPages,
     activeClass: currentPage === numOfPages,
   });
-  // last page
   addClickListener(button, numOfPages, pagination);
   pageBtns.push(button);
 

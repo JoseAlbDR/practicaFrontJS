@@ -1,5 +1,4 @@
 export const buildPagination = (pageButtons, pagination) => {
-  pagination.innerHTML = '';
   const prevButton = buildStepButton('prev');
   const nextButton = buildStepButton('next');
   const btnContainer = document.createElement('div');
@@ -12,6 +11,8 @@ export const buildPagination = (pageButtons, pagination) => {
   pagination.appendChild(prevButton);
   pagination.appendChild(btnContainer);
   pagination.appendChild(nextButton);
+
+  return { prevButton, nextButton };
 };
 
 export const addPageButton = ({ pageNumber, activeClass }) => {
