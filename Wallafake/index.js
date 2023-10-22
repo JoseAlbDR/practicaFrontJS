@@ -31,6 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   productList.addEventListener('loadingProductsStart', () => {
+    productList.innerHTML = '';
     showSpinner();
   });
 

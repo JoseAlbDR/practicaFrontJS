@@ -9,7 +9,7 @@ export const paginationController = async (pagination, params) => {
   if (numPages < 2) return;
 
   let page = +getPage() || 1;
-  const pageButtons = buildPageButtons(numPages, page);
+  const pageButtons = buildPageButtons(numPages, page, pagination);
 
   buildPagination(pageButtons, pagination);
 
@@ -46,13 +46,24 @@ const setUrlPagination = (page) => {
   window.history.pushState({}, '', currentURL);
 };
 
-const buildPageButtons = (numOfPages, currentPage) => {
+const addClickListener = (button, page, pagination) =>
+  button.addEventListener('click', () => {
+    setUrlPagination(page);
+    dispatchCustomEvent('pageChanged', null, pagination);
+    const searchParams = getSearchParams();
+    paginationController(pagination, searchParams);
+  });
+
+const buildPageButtons = (numOfPages, currentPage, pagination) => {
   const pageBtns = [];
 
+  const firstPageButton = addPageButton({
+    pageNumber: 1,
+    activeClass: currentPage === 1,
+  });
+  addClickListener(firstPageButton, 1, pagination);
   // first page
-  pageBtns.push(
-    addPageButton({ pageNumber: 1, activeClass: currentPage === 1 })
-  );
+  pageBtns.push(firstPageButton);
 
   // dots
   if (currentPage > 3) {
@@ -61,45 +72,45 @@ const buildPageButtons = (numOfPages, currentPage) => {
 
   // one before current
   if (currentPage !== 1 && currentPage !== 2) {
-    pageBtns.push(
-      addPageButton({
-        pageNumber: currentPage - 1,
-        activeClass: false,
-      })
-    );
+    const button = addPageButton({
+      pageNumber: currentPage - 1,
+      activeClass: false,
+    });
+    addClickListener(button, currentPage - 1, pagination);
+    pageBtns.push(button);
   }
 
   // current page
   if (currentPage !== 1 && currentPage !== numOfPages) {
-    pageBtns.push(
-      addPageButton({
-        pageNumber: currentPage,
-        activeClass: true,
-      })
-    );
+    const button = addPageButton({
+      pageNumber: currentPage,
+      activeClass: true,
+    });
+    addClickListener(button, currentPage, pagination);
+    pageBtns.push(button);
   }
 
   // one after current
   if (currentPage !== numOfPages && currentPage !== numOfPages - 1) {
-    pageBtns.push(
-      addPageButton({
-        pageNumber: currentPage + 1,
-        activeClass: false,
-      })
-    );
+    const button = addPageButton({
+      pageNumber: currentPage + 1,
+      activeClass: false,
+    });
+    addClickListener(button, currentPage + 1, pagination);
+    pageBtns.push(button);
   }
 
   if (currentPage < numOfPages - 2) {
     pageBtns.push(addDots());
   }
 
+  const button = addPageButton({
+    pageNumber: numOfPages,
+    activeClass: currentPage === numOfPages,
+  });
   // last page
-  pageBtns.push(
-    addPageButton({
-      pageNumber: numOfPages,
-      activeClass: currentPage === numOfPages,
-    })
-  );
+  addClickListener(button, numOfPages, pagination);
+  pageBtns.push(button);
 
   return pageBtns;
 };
