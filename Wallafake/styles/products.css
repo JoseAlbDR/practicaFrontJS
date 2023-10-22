@@ -2,6 +2,11 @@ h1 {
   text-align: center;
 }
 
+/* .product {
+  display: flex;
+  flex-direction: column;
+} */
+
 .products-content {
   padding: 2rem;
 }
@@ -95,7 +100,8 @@ h1 {
 
 @media (width > 1120px) {
   .products-content {
-    display: flex;
+    display: grid;
+    grid-template-columns: 350px 1fr;
   }
 
   .search-form {
