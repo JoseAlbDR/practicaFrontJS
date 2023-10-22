@@ -4,6 +4,15 @@ export const emptyProducts = () => {
   `;
 };
 
+export const errorMessage = () => {
+  return `
+  <div>
+    <p class="alert error">There was an error, try again later</p>
+    <a href="/" class="btn">RETRY</a>
+  </div>
+  `;
+};
+
 export const buildProduct = (product) => {
   return `
   <a href="./product-detail.html?id=${product.id}" class="product-card">

@@ -1,6 +1,10 @@
 import { dispatchCustomEvent, errorMessageEvent } from '../utils/index.js';
 import { getProducts } from './productListModel.js';
-import { buildProduct, emptyProducts } from './productsListView.js';
+import {
+  buildProduct,
+  emptyProducts,
+  errorMessage,
+} from './productsListView.js';
 
 export const productListController = async (productList, params, quantity) => {
   let products = [];
@@ -16,6 +20,7 @@ export const productListController = async (productList, params, quantity) => {
     renderProducts(products, productList);
   } catch (error) {
     errorMessageEvent('productsLoaded', error.message, productList);
+    productList.innerHTML = errorMessage();
   } finally {
     dispatchCustomEvent('loadingProductsEnd', null, productList);
   }
