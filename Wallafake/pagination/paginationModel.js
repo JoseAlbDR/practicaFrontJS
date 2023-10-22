@@ -5,6 +5,10 @@ export const getNumProducts = async (params) => {
     ? `/api/products?name=${params.name}`
     : '/api/products';
 
-  const products = await customFetch.get(endPoint);
-  return products.length;
+  try {
+    const products = await customFetch.get(endPoint);
+    return products.length;
+  } catch (error) {
+    throw error;
+  }
 };

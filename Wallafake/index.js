@@ -5,7 +5,7 @@ import { spinnerController } from './spinner/spinnerController.js';
 import { paginationController } from './pagination/paginationController.js';
 import { getSearchParams } from './utils/index.js';
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
   const productList = document.getElementById('products');
   const notifications = document.getElementById('notifications');
   const spinner = document.getElementById('spinner');
@@ -30,6 +30,10 @@ document.addEventListener('DOMContentLoaded', () => {
     showNotification(e.detail.message, e.detail.type);
   });
 
+  pagination.addEventListener('paginationLoaded', (e) => {
+    showNotification(e.detail.message, e.detail.type);
+  });
+
   productList.addEventListener('loadingProductsStart', () => {
     productList.innerHTML = '';
     showSpinner();
@@ -44,6 +48,6 @@ document.addEventListener('DOMContentLoaded', () => {
     productListController(productList, searchParams, quantity);
   });
 
-  paginationController(pagination, searchParams);
-  productListController(productList, searchParams, quantity);
+  await paginationController(pagination, searchParams);
+  await productListController(productList, searchParams, quantity);
 });

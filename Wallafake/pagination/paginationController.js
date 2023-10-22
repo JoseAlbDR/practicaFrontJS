@@ -1,43 +1,52 @@
-import { LIMIT, getSearchParams } from '../utils/index.js';
-import { dispatchCustomEvent } from '../utils/customEvent.js';
+import {
+  LIMIT,
+  getSearchParams,
+  dispatchCustomEvent,
+  errorMessageEvent,
+} from '../utils/index.js';
+
 import { getNumProducts } from './paginationModel.js';
 import { addDots, addPageButton, buildPagination } from './paginationView.js';
 
 export const paginationController = async (pagination, params) => {
-  // Get num products to calculate num pages
-  const numProducts = await getNumProducts(params);
-  const numPages = Math.ceil(numProducts / LIMIT);
-  if (numPages < 2) return;
+  try {
+    // Get num products to calculate num pages
+    const numProducts = await getNumProducts(params);
+    const numPages = Math.ceil(numProducts / LIMIT);
+    if (numPages < 2) return;
 
-  // Get current page from url, default 1 if no page
-  let page = +getPage() || 1;
+    // Get current page from url, default 1 if no page
+    let page = +getPage() || 1;
 
-  // Build numbered page buttons
-  const pageButtons = buildPageButtons(numPages, page, pagination);
+    // Build numbered page buttons
+    const pageButtons = buildPageButtons(numPages, page, pagination);
 
-  pagination.innerHTML = '';
+    pagination.innerHTML = '';
 
-  // Create prev and next buttons and render all buttons
-  const { prevButton, nextButton } = buildPagination(pageButtons, pagination);
+    // Create prev and next buttons and render all buttons
+    const { prevButton, nextButton } = buildPagination(pageButtons, pagination);
 
-  // Prev and Next buttons event listeners
-  prevButton.addEventListener('click', () => {
-    if (page === 1) return;
-    page--;
-    setUrlPagination(page);
-    dispatchCustomEvent('pageChanged', null, pagination);
-    const searchParams = getSearchParams();
-    paginationController(pagination, searchParams);
-  });
+    // Prev and Next buttons event listeners
+    prevButton.addEventListener('click', () => {
+      if (page === 1) return;
+      page--;
+      setUrlPagination(page);
+      dispatchCustomEvent('pageChanged', null, pagination);
+      const searchParams = getSearchParams();
+      paginationController(pagination, searchParams);
+    });
 
-  nextButton.addEventListener('click', () => {
-    if (numPages === 0 || page === numPages) return;
-    page++;
-    setUrlPagination(page);
-    dispatchCustomEvent('pageChanged', null, pagination);
-    const searchParams = getSearchParams();
-    paginationController(pagination, searchParams);
-  });
+    nextButton.addEventListener('click', () => {
+      if (numPages === 0 || page === numPages) return;
+      page++;
+      setUrlPagination(page);
+      dispatchCustomEvent('pageChanged', null, pagination);
+      const searchParams = getSearchParams();
+      paginationController(pagination, searchParams);
+    });
+  } catch (error) {
+    errorMessageEvent('paginationLoaded', error.message, pagination);
+  }
 };
 
 const setUrlPagination = (page) => {
