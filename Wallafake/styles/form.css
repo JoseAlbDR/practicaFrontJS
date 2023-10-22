@@ -1,7 +1,8 @@
-.content {
+.form-content {
   display: grid;
-  align-items: center;
+  place-items: center;
   width: 100%;
+  height: 100%;
   padding: 1.5rem;
 }
 
@@ -60,15 +61,4 @@
   background-color: #eee;
   border: 1px solid #ccc;
   cursor: not-allowed;
-}
-
-@media (width > 1120px) {
-  #search-form.form {
-    grid-row: 2;
-    align-self: self-start;
-  }
-
-  .content .header {
-    grid-column: span 5;
-  }
 }

@@ -271,3 +271,7 @@ ul {
 .loading {
   margin: 0 auto;
 }
+
+#spinner {
+  grid-column: span 3;
+}

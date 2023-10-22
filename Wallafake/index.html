@@ -14,8 +14,8 @@
   <body>
     <nav id="menu" class="menu"></nav>
     <section id="notifications"></section>
-    <div class="content">
-      <form method="get" id="search-form" class="form" action="">
+    <div class="products-content">
+      <form method="get" id="search-form" class="form search-form" action="">
         <h4 class="form-title">Search</h4>
         <div class="form-row">
           <label class="form-label" for="name"> Product Name </label>
@@ -35,15 +35,16 @@
           Reset
         </button>
       </form>
+      <div class="product">
+        <div class="header">
+          <h1>Product List (<span id="products-quantity"></span>)</h1>
+          <section class="pagination" id="pagination"></section>
+        </div>
 
-      <div class="header">
-        <h1>Product List (<span id="products-quantity"></span>)</h1>
-        <section class="pagination" id="pagination"></section>
+        <section id="spinner"></section>
+
+        <section id="products" class="products"></section>
       </div>
-
-      <section id="spinner"></section>
-
-      <section id="products" class="products"></section>
     </div>
     <script type="module" src="./index.js"></script>
   </body>

@@ -2,6 +2,10 @@ h1 {
   text-align: center;
 }
 
+.products-content {
+  padding: 2rem;
+}
+
 .products {
   background: var(--background-secondary-color);
   border-radius: var(--border-radius);
@@ -86,5 +90,16 @@ h1 {
   .product.product-detail .product-card .img {
     max-width: 50%;
     height: 100%;
+  }
+}
+
+@media (width > 1120px) {
+  .products-content {
+    display: flex;
+  }
+
+  .search-form {
+    height: 300px;
+    margin-top: 165px;
   }
 }
