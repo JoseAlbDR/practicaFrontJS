@@ -13,3 +13,12 @@ export const buildProduct = (product) => {
   </div>
     `;
 };
+
+export const errorMessage = (href) => {
+  return `
+  <div>
+    <p class="alert error">There was an error, try again later</p>
+    <a href=${href} class="btn">RETRY</a>
+  </div>
+  `;
+};

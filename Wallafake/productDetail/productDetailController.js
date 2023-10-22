@@ -5,7 +5,7 @@ import {
 } from '../utils/index.js';
 import { decodeToken } from '../utils/decodeToken.js';
 import { deleteProduct, getProduct } from './productDetailModel.js';
-import { buildProduct } from './productDetailView.js';
+import { buildProduct, errorMessage } from './productDetailView.js';
 
 export const productDetailController = async (productDetail, productId) => {
   const userData = decodeToken(localStorage.getItem('accessToken'));
@@ -15,12 +15,8 @@ export const productDetailController = async (productDetail, productId) => {
     const product = await getProduct(productId);
     renderProduct(product, productDetail);
     if (userData?.userId === product.user.id) {
-      const buttonsContainer = document.createElement('div');
-      buttonsContainer.classList.add('buttons-container');
-      const productContent = productDetail.querySelector('.product-content');
-      productContent.appendChild(buttonsContainer);
-      const updateButton = addButton(buttonsContainer, 'update');
-      const deleteButton = addButton(buttonsContainer, 'delete');
+      const { deleteButton, updateButton } = createMutationButtons();
+
       deleteButton.addEventListener('click', async () => {
         const handler = () => handleDeleteProduct(productId, productDetail);
         dispatchCustomEvent('confirmDeleteProduct', { handler }, productDetail);
@@ -31,10 +27,9 @@ export const productDetailController = async (productDetail, productId) => {
       });
     }
   } catch (error) {
-    console.log(error);
-    // setTimeout(() => {
-    //   window.location.href = '/';
-    // }, 1000);
+    setTimeout(() => {
+      window.location.href = '/';
+    }, 1000);
     errorMessageEvent('productLoaded', error.message, productDetail);
   } finally {
     dispatchCustomEvent('loadingProductEnd', null, productDetail);
@@ -49,7 +44,7 @@ const renderProduct = (product, productDetail) => {
   productDetail.appendChild(productContainer);
 };
 
-export const addButton = (container, type) => {
+const addButton = (container, type) => {
   const button = document.createElement('button');
   button.textContent = `${type} Product`;
   button.id = `${type}-product-btn`;
@@ -59,14 +54,25 @@ export const addButton = (container, type) => {
   return button;
 };
 
-export const handleDeleteProduct = async (id, productDetail) => {
+const handleDeleteProduct = async (id, productDetail) => {
   try {
     await deleteProduct(id);
     successMessageEvent('productDeleted', 'Product deleted', productDetail);
-    setTimeout(() => {
-      window.location.href = '/';
-    }, 1000);
+    window.location.href = '/';
   } catch (error) {
     errorMessageEvent('productDeleted', error.message, productDetail);
+    productDetail.innerHTML = '';
+    productDetail.innerHTML = errorMessage(window.location.href);
   }
+};
+
+const createMutationButtons = () => {
+  const buttonsContainer = document.createElement('div');
+  buttonsContainer.classList.add('buttons-container');
+  const productContent = productDetail.querySelector('.product-content');
+  productContent.appendChild(buttonsContainer);
+  const updateButton = addButton(buttonsContainer, 'update');
+  const deleteButton = addButton(buttonsContainer, 'delete');
+
+  return { updateButton, deleteButton };
 };
