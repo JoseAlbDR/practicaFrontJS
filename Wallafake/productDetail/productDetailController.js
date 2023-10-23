@@ -13,10 +13,16 @@ export const productDetailController = async (productDetail, productId) => {
   try {
     dispatchCustomEvent('loadingProductStart', null, productDetail);
     const product = await getProduct(productId);
-    renderProduct(product, productDetail);
-    if (userData?.userId === product.user.id) {
-      const { deleteButton, updateButton } = createMutationButtons();
 
+    renderProduct(product, productDetail);
+
+    const { backButton, deleteButton, updateButton } = createMutationButtons();
+
+    backButton.addEventListener('click', () => {
+      window.history.back();
+    });
+
+    if (userData?.userId === product.user.id) {
       deleteButton.addEventListener('click', async () => {
         const handler = async () =>
           await handleDeleteProduct(productId, productDetail);
@@ -47,10 +53,17 @@ const renderProduct = (product, productDetail) => {
 
 const addButton = (container, type) => {
   const button = document.createElement('button');
-  button.textContent = `${type} Product`;
-  button.id = `${type}-product-btn`;
+  button.textContent = `${type !== 'back' ? type + 'Product' : type}`;
   button.classList.add('btn');
-  button.classList.add(`${type === 'delete' ? 'danger-btn' : 'btn-hipster'}`);
+  button.classList.add(
+    `${
+      type === 'delete'
+        ? 'danger-btn'
+        : type === 'update'
+        ? 'btn-block'
+        : 'btn-hipster'
+    }`
+  );
   container.appendChild(button);
   return button;
 };
@@ -74,6 +87,7 @@ const createMutationButtons = () => {
   productContent.appendChild(buttonsContainer);
   const updateButton = addButton(buttonsContainer, 'update');
   const deleteButton = addButton(buttonsContainer, 'delete');
+  const backButton = addButton(buttonsContainer, 'back');
 
-  return { updateButton, deleteButton };
+  return { backButton, updateButton, deleteButton };
 };

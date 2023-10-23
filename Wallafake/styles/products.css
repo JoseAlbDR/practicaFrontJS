@@ -83,10 +83,17 @@ h1 {
 .buttons-container {
   display: flex;
   align-items: center;
-  gap: 1.5rem;
+  justify-content: space-between;
+  gap: 0.5rem;
+  flex-wrap: wrap;
 }
 
-.buttons-container .btn {
+.buttons-container .btn-block,
+.buttons-container .danger-btn {
+  width: 45%;
+}
+
+.buttons-container .btn-hipster {
   width: 100%;
 }
 
