@@ -9,3 +9,4 @@ export {
   successMessageEvent,
 } from './customEvent.js';
 export { getSearchParams } from './getSearchParams.js';
+export { selectDefaultOption } from './selectDefaultOption.js';
