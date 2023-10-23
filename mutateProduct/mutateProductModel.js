@@ -37,3 +37,26 @@ export const updateProduct = async (product, token, id) => {
 
   return response;
 };
+
+/**
+ * Get Product Data
+ *
+ * This function retrieves detailed product information, including the name, image,
+ * description, price, and type, for a specific product ID from the server.
+ *
+ * @param {string} id - The unique identifier of the product to retrieve.
+ *
+ * @returns {Object} - An object containing the retrieved product data.
+ */
+export const getProduct = async (id) => {
+  const url = `${RESOURCE_ENDPOINT}/${id}?_expand=user`;
+  const data = await customFetch.get(url);
+  const product = {
+    name: data.name,
+    image: data.image,
+    description: data.description,
+    price: data.price,
+    for: data.for,
+  };
+  return product;
+};
