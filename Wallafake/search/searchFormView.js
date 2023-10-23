@@ -33,7 +33,7 @@ export const buildSearchForm = () => {
       <button type="submit" class="btn btn-block form-btn" id="search-btn">
         Submit
       </button>
-      <button type="reset" class="btn btn-block form-btn" id="reset-btn">
+      <button type="reset" class="btn btn-block btn-hipster form-btn" id="reset-btn">
         Reset
       </button>
   `;
