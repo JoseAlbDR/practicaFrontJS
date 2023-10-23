@@ -25,6 +25,8 @@ export const paginationController = async (pagination, params) => {
     // Get current page from url, default 1 if no page
     let page = +getPage() || 1;
 
+    if (page > numPages) return;
+
     // Build numbered page buttons
     const pageButtons = buildPageButtons(numPages, page, pagination);
 
