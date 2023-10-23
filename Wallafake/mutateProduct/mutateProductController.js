@@ -10,6 +10,7 @@ import {
   successMessageEvent,
   disableForm,
   enableForm,
+  selectDefaultOption,
 } from '../utils/index.js';
 
 export const createProductController = async (form, productId) => {
@@ -56,19 +57,9 @@ const fillForm = (product, form) => {
   for (const key of Object.keys(product)) {
     const selectElement = form.querySelector(`[name="${key}"]`);
     if (key === 'for') {
-      selectOption(selectElement, product, key);
+      selectDefaultOption(selectElement, product[key]);
     } else {
       selectElement.value = product[key];
-    }
-  }
-};
-
-const selectOption = (selectElement, product, key) => {
-  const options = selectElement.options;
-  for (let i = 0; i < options.length; i++) {
-    if (options[i].value === product[key]) {
-      selectElement.selectedIndex = i;
-      return;
     }
   }
 };
