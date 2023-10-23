@@ -116,9 +116,4 @@ h1 {
     display: grid;
     grid-template-columns: 350px 1fr;
   }
-
-  .search-form {
-    margin-top: 165px;
-    align-self: start;
-  }
 }
