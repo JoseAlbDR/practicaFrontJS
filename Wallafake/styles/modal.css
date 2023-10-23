@@ -1,3 +1,11 @@
+.modal-section {
+  display: none;
+}
+
+.modal-section.visible {
+  display: block;
+}
+
 .confirm-modal {
   position: fixed;
   inset: 0;
@@ -9,7 +17,6 @@
   align-items: center;
   justify-content: center;
   z-index: 1000;
-  transition: var(--transition);
 }
 
 .modal-content {
