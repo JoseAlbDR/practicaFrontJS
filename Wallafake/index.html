@@ -25,8 +25,15 @@
             id="productName"
             name="name"
             minlength="3"
-            required
           />
+        </div>
+        <div class="form-row">
+          <label class="form-label" for="limit">Products per page</label>
+          <select class="form-input" name="_limit" id="limit">
+            <option value="5">5</option>
+            <option value="10">10</option>
+            <option value="15">15</option>
+          </select>
         </div>
         <button type="submit" class="btn btn-block form-btn" id="search-btn">
           Submit
