@@ -1,3 +1,10 @@
+/**
+ * Build Search Form Function
+ *
+ * This function generates the HTML content for a search form with input fields and buttons.
+ *
+ * @returns {string} - HTML content for the search form.
+ */
 export const buildSearchForm = () => {
   return `
       <h4 class="form-title">Search</h4>
