@@ -18,6 +18,11 @@ export const authenticatedItems = [
 
 export const unauthenticatedItems = [
   {
+    name: 'Home',
+    id: 'home',
+    href: '/',
+  },
+  {
     name: 'Login',
     id: 'login',
     href: './login.html',
