@@ -1,3 +1,4 @@
+import { RESOURCE_ENDPOINT } from '../config/const.js';
 import { customFetch } from '../utils/index.js';
 
 export const createProduct = async (product, token) => {
@@ -7,7 +8,7 @@ export const createProduct = async (product, token) => {
 };
 
 export const getProduct = async (id) => {
-  const url = `/api/products/${id}?_expand=user`;
+  const url = `${RESOURCE_ENDPOINT}/${id}?_expand=user`;
   const data = await customFetch.get(url);
   const product = {
     name: data.name,

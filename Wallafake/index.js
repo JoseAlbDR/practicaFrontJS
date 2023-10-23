@@ -3,30 +3,27 @@ import { notificationController } from './notifications/notificationsController.
 import { menuController } from './menu/menuController.js';
 import { spinnerController } from './spinner/spinnerController.js';
 import { paginationController } from './pagination/paginationController.js';
-import { getSearchParams } from './utils/index.js';
+import { searchController } from './search/searchController.js';
 
 document.addEventListener('DOMContentLoaded', async () => {
   const productList = document.getElementById('products');
   const notifications = document.getElementById('notifications');
   const spinner = document.getElementById('spinner');
-  const resetBtn = document.getElementById('reset-btn');
   const quantity = document.getElementById('products-quantity');
   const pagination = document.getElementById('pagination');
-  const searchForm = document.getElementById('search-form');
 
   const showNotification = notificationController(notifications);
   const { showSpinner, hideSpinner } = spinnerController(spinner);
 
-  resetBtn.addEventListener('click', () => {
-    productListController(productList, quantity, searchForm);
-    const url = new URL(window.location.href);
-    url.search = '';
-    window.location.href = url.toString();
-  });
-
+  // MENU
   const menuContainer = document.getElementById('menu');
   menuController(menuContainer, 'home');
 
+  // SEARCH FORM
+  const searchForm = document.getElementById('search-form');
+  searchController(searchForm);
+
+  // LISTENERS
   productList.addEventListener('productsLoaded', (e) => {
     showNotification(e.detail.message, e.detail.type);
   });
@@ -48,6 +45,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     productListController(productList, quantity, searchForm);
   });
 
+  // CONTROLLERS
   await paginationController(pagination);
   await productListController(productList, quantity, searchForm);
 });

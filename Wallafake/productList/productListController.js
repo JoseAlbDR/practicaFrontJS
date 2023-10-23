@@ -2,6 +2,7 @@ import {
   LIMIT,
   dispatchCustomEvent,
   errorMessageEvent,
+  filterParams,
   getSearchParams,
   selectDefaultOption,
 } from '../utils/index.js';
@@ -12,31 +13,16 @@ import {
   errorMessage,
 } from './productsListView.js';
 
-export const productListController = async (
-  productList,
-  quantity,
-  searchForm
-) => {
-  const params = getSearchParams();
+export const productListController = async (productList, quantity) => {
   let products = [];
+  const params = getSearchParams();
 
-  // Delete no needed params
-  if (params.name === 'any' || params.name === '') delete params.name;
-  if (params.for === 'all') delete params.for;
+  // Delete default params (name=any, for=all) set default limit
+  filterParams(params);
 
-  // Set values for search form after each search
-  const selectLimit = searchForm.querySelector('#limit');
-  const inputName = searchForm.querySelector('#productName');
-  const selectType = searchForm.querySelector('#search-type');
-
-  inputName.value = params.name || 'any';
-  selectDefaultOption(selectLimit, params._limit || LIMIT);
-  selectDefaultOption(selectType, params.for);
-
-  if (params.name) params.name = params.name?.toLowerCase();
   try {
     dispatchCustomEvent('loadingProductsStart', null, productList);
-    console.log(params);
+
     products = await getProducts(params);
     quantity.innerText = products.length;
     if (products.length === 0) {
