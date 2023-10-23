@@ -6,24 +6,28 @@ import { paginationController } from './pagination/paginationController.js';
 import { searchController } from './search/searchController.js';
 
 document.addEventListener('DOMContentLoaded', async () => {
+  // Needed DOM nodes
   const productList = document.getElementById('products');
   const notifications = document.getElementById('notifications');
   const spinner = document.getElementById('spinner');
   const quantity = document.getElementById('products-quantity');
   const pagination = document.getElementById('pagination');
+  const menuContainer = document.getElementById('menu');
+  const searchForm = document.getElementById('search-form');
 
+  // Notifications
   const showNotification = notificationController(notifications);
+
+  // Loader/Spinner
   const { showSpinner, hideSpinner } = spinnerController(spinner);
 
-  // MENU
-  const menuContainer = document.getElementById('menu');
+  // Menu
   menuController(menuContainer, 'home');
 
-  // SEARCH FORM
-  const searchForm = document.getElementById('search-form');
+  // Search Form
   searchController(searchForm);
 
-  // LISTENERS
+  // Event listeners
   productList.addEventListener('productsLoaded', (e) => {
     showNotification(e.detail.message, e.detail.type);
   });
@@ -45,7 +49,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     productListController(productList, quantity, searchForm);
   });
 
-  // CONTROLLERS
-  await paginationController(pagination);
-  await productListController(productList, quantity, searchForm);
+  // Controllers
+  paginationController(pagination);
+  productListController(productList, quantity, searchForm);
 });
