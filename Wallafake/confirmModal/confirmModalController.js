@@ -1,3 +1,5 @@
+import { buildModal } from './confirmModalView.js';
+
 /**
  * Confirm Modal Controller Function
  *
