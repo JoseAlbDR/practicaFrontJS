@@ -5,14 +5,17 @@ import { spinnerController } from '../spinner/spinnerController.js';
 import { getProductId } from '../utils/getProductId.js';
 
 document.addEventListener('DOMContentLoaded', () => {
+  // Needed DOM nodes
   const notifications = document.getElementById('notifications');
   const menuContainer = document.getElementById('menu');
   const spinner = document.getElementById('spinner');
   const backBtn = document.getElementById('back-btn');
 
+  // Notifications
   const showNotification = notificationController(notifications);
   const { showSpinner, hideSpinner } = spinnerController(spinner);
 
+  // Get needed form based on if the productId exist in the url
   const productId = getProductId();
 
   let currentProductForm;
@@ -26,8 +29,10 @@ document.addEventListener('DOMContentLoaded', () => {
     mutationType = 'create';
   }
 
+  // Menu
   menuController(menuContainer, `${mutationType}Product`);
 
+  // Event Listeners
   currentProductForm.addEventListener(`${mutationType}-product`, (e) => {
     showNotification(e.detail.message, e.detail.type);
   });
@@ -44,5 +49,6 @@ document.addEventListener('DOMContentLoaded', () => {
     window.history.back();
   });
 
+  // Controller
   createProductController(currentProductForm, productId);
 });
