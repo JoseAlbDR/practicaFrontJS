@@ -4,15 +4,22 @@ import {
   errorMessageEvent,
   LIMIT,
 } from '../utils/index.js';
-
 import { getNumProducts } from './paginationModel.js';
 import { addDots, addPageButton, buildPagination } from './paginationView.js';
 
+/**
+ * Pagination Controller Function
+ *
+ * This function manages the pagination of product listings by constructing and displaying page buttons.
+ *
+ * @param {HTMLElement} pagination - The container for displaying pagination buttons.
+ */
 export const paginationController = async (pagination) => {
   const params = getSearchParams();
 
   const limit = params._limit || LIMIT;
 
+  // Handle specific URL parameter cases.
   if (params.name === '' || params.name === 'any') delete params.name;
   if (params.for === 'all') delete params.for;
   delete params._limit;
@@ -21,26 +28,29 @@ export const paginationController = async (pagination) => {
   if (params.name) params.name = params.name?.toLowerCase();
 
   try {
-    // Get num products to calculate num pages
+    // Get the total number of products to calculate the number of pages.
     const numProducts = await getNumProducts(params);
     const numPages = Math.ceil(numProducts / limit);
 
+    // If there are fewer than 2 pages, return as pagination is not needed.
     if (numPages < 2) return;
 
-    // Get current page from url, default 1 if no page
+    // Get the current page from the URL, defaulting to 1 if no page parameter is present.
     let page = +getPage() || 1;
 
+    // Return if the current page exceeds the total number of pages.
     if (page > numPages) return;
 
-    // Build numbered page buttons
+    // Build numbered page buttons.
     const pageButtons = buildPageButtons(numPages, page, pagination);
 
+    // Clear the existing content of the pagination container.
     pagination.innerHTML = '';
 
-    // Create prev and next buttons and render all buttons
+    // Create previous and next buttons and render all buttons.
     const { prevButton, nextButton } = buildPagination(pageButtons, pagination);
 
-    // Prev and Next buttons event listeners
+    // Add event listeners to the previous and next buttons.
     prevButton.addEventListener('click', () => {
       if (page === 1) return;
       page--;
@@ -63,12 +73,28 @@ export const paginationController = async (pagination) => {
   }
 };
 
+/**
+ * Set URL Pagination Function
+ *
+ * This function updates the URL with the current page number.
+ *
+ * @param {number} page - The page number to set in the URL.
+ */
 const setUrlPagination = (page) => {
   const currentURL = new URL(window.location.href);
   currentURL.searchParams.set('_page', page);
   window.history.pushState({}, '', currentURL);
 };
 
+/**
+ * Add Click Listener Function
+ *
+ * This function adds a click event listener to a button that updates the URL and triggers page changes.
+ *
+ * @param {HTMLElement} button - The button element to which the click event is added.
+ * @param {number} page - The page number associated with the button.
+ * @param {HTMLElement} pagination - The container for displaying pagination buttons.
+ */
 const addClickListener = (button, page, pagination) =>
   button.addEventListener('click', () => {
     setUrlPagination(page);
@@ -77,10 +103,21 @@ const addClickListener = (button, page, pagination) =>
     paginationController(pagination, searchParams);
   });
 
+/**
+ * Build Page Buttons Function
+ *
+ * This function creates and returns an array of page buttons for navigation.
+ *
+ * @param {number} numOfPages - The total number of pages.
+ * @param {number} currentPage - The current page.
+ * @param {HTMLElement} pagination - The container for displaying pagination buttons.
+ *
+ * @returns {HTMLElement[]} - An array of page buttons.
+ */
 const buildPageButtons = (numOfPages, currentPage, pagination) => {
   const pageBtns = [];
 
-  // first page
+  // Create the first page button.
   const firstPageButton = addPageButton({
     pageNumber: 1,
     activeClass: currentPage === 1,
@@ -88,12 +125,12 @@ const buildPageButtons = (numOfPages, currentPage, pagination) => {
   addClickListener(firstPageButton, 1, pagination);
   pageBtns.push(firstPageButton);
 
-  // dots
+  // Add dots if currentPage is greater than 3.
   if (currentPage > 3) {
     pageBtns.push(addDots());
   }
 
-  // one before current
+  // Create a button for the page before the current page.
   if (currentPage !== 1 && currentPage !== 2) {
     const button = addPageButton({
       pageNumber: currentPage - 1,
@@ -103,7 +140,7 @@ const buildPageButtons = (numOfPages, currentPage, pagination) => {
     pageBtns.push(button);
   }
 
-  // current page
+  // Create a button for the current page.
   if (currentPage !== 1 && currentPage !== numOfPages) {
     const button = addPageButton({
       pageNumber: currentPage,
@@ -113,7 +150,7 @@ const buildPageButtons = (numOfPages, currentPage, pagination) => {
     pageBtns.push(button);
   }
 
-  // one after current
+  // Create a button for the page after the current page.
   if (currentPage !== numOfPages && currentPage !== numOfPages - 1) {
     const button = addPageButton({
       pageNumber: currentPage + 1,
@@ -123,12 +160,12 @@ const buildPageButtons = (numOfPages, currentPage, pagination) => {
     pageBtns.push(button);
   }
 
-  // dots
+  // Add dots if currentPage is less than numOfPages - 2.
   if (currentPage < numOfPages - 2) {
     pageBtns.push(addDots());
   }
 
-  // last page
+  // Create the last page button.
   const button = addPageButton({
     pageNumber: numOfPages,
     activeClass: currentPage === numOfPages,
@@ -139,6 +176,13 @@ const buildPageButtons = (numOfPages, currentPage, pagination) => {
   return pageBtns;
 };
 
+/**
+ * Get Page Function
+ *
+ * This function retrieves the current page number from the URL's query parameters.
+ *
+ * @returns {string | null} - The current page number or null if not found.
+ */
 export const getPage = () => {
   const queryString = window.location.search;
   const searchParams = new URLSearchParams(queryString);
