@@ -8,6 +8,7 @@ import {
 
 export const productListController = async (productList, params, quantity) => {
   let products = [];
+  if (params.name === '') delete params.name;
   try {
     dispatchCustomEvent('loadingProductsStart', null, productList);
     products = await getProducts(params);

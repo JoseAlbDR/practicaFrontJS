@@ -1,18 +1,25 @@
 import {
-  LIMIT,
   getSearchParams,
   dispatchCustomEvent,
   errorMessageEvent,
+  LIMIT,
 } from '../utils/index.js';
 
 import { getNumProducts } from './paginationModel.js';
 import { addDots, addPageButton, buildPagination } from './paginationView.js';
 
 export const paginationController = async (pagination, params) => {
+  if (params.name === '') delete params.name;
+
+  const limit = params._limit || LIMIT;
+
+  delete params.limit;
+
   try {
     // Get num products to calculate num pages
     const numProducts = await getNumProducts(params);
-    const numPages = Math.ceil(numProducts / LIMIT);
+    const numPages = Math.ceil(numProducts / limit);
+
     if (numPages < 2) return;
 
     // Get current page from url, default 1 if no page
