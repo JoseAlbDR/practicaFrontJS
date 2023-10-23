@@ -18,7 +18,8 @@ export const productDetailController = async (productDetail, productId) => {
       const { deleteButton, updateButton } = createMutationButtons();
 
       deleteButton.addEventListener('click', async () => {
-        const handler = () => handleDeleteProduct(productId, productDetail);
+        const handler = async () =>
+          await handleDeleteProduct(productId, productDetail);
         dispatchCustomEvent('confirmDeleteProduct', { handler }, productDetail);
       });
 
