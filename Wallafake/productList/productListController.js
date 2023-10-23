@@ -1,4 +1,9 @@
-import { dispatchCustomEvent, errorMessageEvent } from '../utils/index.js';
+import {
+  LIMIT,
+  dispatchCustomEvent,
+  errorMessageEvent,
+  selectDefaultOption,
+} from '../utils/index.js';
 import { getProducts } from './productListModel.js';
 import {
   buildProduct,
@@ -6,9 +11,24 @@ import {
   errorMessage,
 } from './productsListView.js';
 
-export const productListController = async (productList, params, quantity) => {
+export const productListController = async (
+  productList,
+  params,
+  quantity,
+  searchForm
+) => {
   let products = [];
+
+  // If name input is empty do not query it
   if (params.name === '') delete params.name;
+
+  // Set values for search form
+  const selectLimit = searchForm.querySelector('#limit');
+  const inputName = searchForm.querySelector('#productName');
+
+  inputName.value = params.name || '';
+  selectDefaultOption(selectLimit, params._limit || LIMIT);
+
   try {
     dispatchCustomEvent('loadingProductsStart', null, productList);
     products = await getProducts(params);
