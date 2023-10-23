@@ -12,6 +12,8 @@ document.addEventListener('DOMContentLoaded', async () => {
   const resetBtn = document.getElementById('reset-btn');
   const quantity = document.getElementById('products-quantity');
   const pagination = document.getElementById('pagination');
+  const searchForm = document.getElementById('search-form');
+
   const showNotification = notificationController(notifications);
   const { showSpinner, hideSpinner } = spinnerController(spinner);
 
@@ -45,9 +47,9 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   pagination.addEventListener('pageChanged', () => {
     searchParams = getSearchParams();
-    productListController(productList, searchParams, quantity);
+    productListController(productList, searchParams, quantity, searchForm);
   });
 
   await paginationController(pagination, searchParams);
-  await productListController(productList, searchParams, quantity);
+  await productListController(productList, searchParams, quantity, searchForm);
 });
