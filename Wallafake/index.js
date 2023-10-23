@@ -18,6 +18,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   const { showSpinner, hideSpinner } = spinnerController(spinner);
 
   resetBtn.addEventListener('click', () => {
+    productListController(productList, quantity, searchForm);
     const url = new URL(window.location.href);
     url.search = '';
     window.location.href = url.toString();

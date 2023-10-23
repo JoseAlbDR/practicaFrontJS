@@ -62,3 +62,7 @@
   border: 1px solid #ccc;
   cursor: not-allowed;
 }
+
+.form input {
+  text-transform: capitalize;
+}
