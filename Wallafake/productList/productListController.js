@@ -20,8 +20,9 @@ export const productListController = async (
   const params = getSearchParams();
   let products = [];
 
-  // If name input is empty do not query it
+  // Delete no needed params
   if (params.name === '') delete params.name;
+  if (params.for === 'all') delete params.for;
 
   // Set values for search form after each search
   const selectLimit = searchForm.querySelector('#limit');

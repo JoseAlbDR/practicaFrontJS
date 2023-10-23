@@ -11,11 +11,12 @@ import { addDots, addPageButton, buildPagination } from './paginationView.js';
 export const paginationController = async (pagination) => {
   const params = getSearchParams();
 
-  if (params.name === '') delete params.name;
-
   const limit = params._limit || LIMIT;
 
-  delete params.limit;
+  if (params.name === '') delete params.name;
+  if (params.for === 'all') delete params.for;
+  delete params._limit;
+  delete params._page;
 
   try {
     // Get num products to calculate num pages
