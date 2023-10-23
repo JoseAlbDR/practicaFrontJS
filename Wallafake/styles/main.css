@@ -1,11 +1,10 @@
+/* Fonts */
+@import url('https://fonts.googleapis.com/css?family=Karla:400|Spectral:400');
 *,
 ::after,
 ::before {
   box-sizing: border-box;
 }
-
-/* Fonts */
-@import url('https://fonts.googleapis.com/css?family=Karla:400|Spectral:400');
 
 html {
   font-size: 100%;

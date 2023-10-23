@@ -3,7 +3,7 @@ export const buildSearchForm = () => {
       <h4 class="form-title">Search</h4>
       <div class="form-rows">
         <div class="form-row">
-          <label class="form-label" for="name">
+          <label class="form-label" for="productName">
           Product Name (Exact Name)</label
           >
           <input
@@ -13,10 +13,11 @@ export const buildSearchForm = () => {
               name="name"
               minlength="3"
               value="any"
+              autocomplete="true"
             />
         </div>
         <div class="form-row">
-          <label class="form-label" for="type"> For </label>
+          <label class="form-label" for="search-type"> For </label>
           <select id="search-type" name="for" class="form-input">
             <option value="all">All</option>
             <option value="On Sale">Sell</option>
