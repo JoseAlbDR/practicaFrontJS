@@ -1,8 +1,8 @@
-export const buildModal = (message) => {
+export const buildModal = () => {
   return `
     <div class="modal-content">
       <header class="modal-header">
-        <h5>${message}</h5>
+        <h5 id="modal-message"></h5>
         <p>This operation cant be undone</p>
       </header>
       <div class="modal-buttons">
