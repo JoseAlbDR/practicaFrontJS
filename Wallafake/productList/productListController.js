@@ -2,6 +2,7 @@ import {
   LIMIT,
   dispatchCustomEvent,
   errorMessageEvent,
+  getSearchParams,
   selectDefaultOption,
 } from '../utils/index.js';
 import { getProducts } from './productListModel.js';
@@ -13,21 +14,23 @@ import {
 
 export const productListController = async (
   productList,
-  params,
   quantity,
   searchForm
 ) => {
+  const params = getSearchParams();
   let products = [];
 
   // If name input is empty do not query it
   if (params.name === '') delete params.name;
 
-  // Set values for search form
+  // Set values for search form after each search
   const selectLimit = searchForm.querySelector('#limit');
   const inputName = searchForm.querySelector('#productName');
+  const selectType = searchForm.querySelector('#search-type');
 
   inputName.value = params.name || '';
   selectDefaultOption(selectLimit, params._limit || LIMIT);
+  selectDefaultOption(selectType, params.for);
 
   try {
     dispatchCustomEvent('loadingProductsStart', null, productList);

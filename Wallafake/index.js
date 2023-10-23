@@ -17,8 +17,6 @@ document.addEventListener('DOMContentLoaded', async () => {
   const showNotification = notificationController(notifications);
   const { showSpinner, hideSpinner } = spinnerController(spinner);
 
-  let searchParams = getSearchParams();
-
   resetBtn.addEventListener('click', () => {
     const url = new URL(window.location.href);
     url.search = '';
@@ -46,10 +44,9 @@ document.addEventListener('DOMContentLoaded', async () => {
   });
 
   pagination.addEventListener('pageChanged', () => {
-    searchParams = getSearchParams();
-    productListController(productList, searchParams, quantity, searchForm);
+    productListController(productList, quantity, searchForm);
   });
 
-  await paginationController(pagination, searchParams);
-  await productListController(productList, searchParams, quantity, searchForm);
+  await paginationController(pagination);
+  await productListController(productList, quantity, searchForm);
 });

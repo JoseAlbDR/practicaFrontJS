@@ -8,7 +8,9 @@ import {
 import { getNumProducts } from './paginationModel.js';
 import { addDots, addPageButton, buildPagination } from './paginationView.js';
 
-export const paginationController = async (pagination, params) => {
+export const paginationController = async (pagination) => {
+  const params = getSearchParams();
+
   if (params.name === '') delete params.name;
 
   const limit = params._limit || LIMIT;
