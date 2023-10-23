@@ -21,7 +21,7 @@ export const loginController = async (form) => {
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
 
-    // Get the form data
+    // Get form data
     const formData = new FormData(form);
     const user = {
       username: formData.get('username'),
