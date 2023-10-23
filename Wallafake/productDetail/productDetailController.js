@@ -7,21 +7,34 @@ import { decodeToken } from '../utils/decodeToken.js';
 import { deleteProduct, getProduct } from './productDetailModel.js';
 import { buildProduct, errorMessage } from './productDetailView.js';
 
+/**
+ * Product Detail Controller Function
+ *
+ * This function serves as a controller for managing the product detail view. It retrieves
+ * product data, renders the product, and provides actions like updating, deleting, and navigation.
+ *
+ * @param {HTMLElement} productDetail - The container for the product detail view.
+ * @param {string} productId - The identifier of the product to display.
+ */
 export const productDetailController = async (productDetail, productId) => {
+  // Decode the user data from the authentication token in local storage.
   const userData = decodeToken(localStorage.getItem('accessToken'));
 
   try {
+    // Start Event for spinner
     dispatchCustomEvent('loadingProductStart', null, productDetail);
-    const product = await getProduct(productId);
 
+    const product = await getProduct(productId);
     renderProduct(product, productDetail);
 
     const { backButton, deleteButton, updateButton } = createMutationButtons();
 
+    // Add a click event to the back button to navigate back in the browser's history.
     backButton.addEventListener('click', () => {
       window.history.back();
     });
 
+    // If the user is the owner of the product, set up delete and update actions.
     if (userData?.userId === product.user.id) {
       deleteButton.addEventListener('click', async () => {
         const handler = async () =>
@@ -30,6 +43,7 @@ export const productDetailController = async (productDetail, productId) => {
       });
 
       updateButton.addEventListener('click', () => {
+        // Redirect to the update product page with the product ID.
         window.location.href = `/update-product.html?id=${productId}`;
       });
     }
@@ -39,10 +53,19 @@ export const productDetailController = async (productDetail, productId) => {
     }, 1000);
     errorMessageEvent('productLoaded', error.message, productDetail);
   } finally {
+    // End Event for spinner
     dispatchCustomEvent('loadingProductEnd', null, productDetail);
   }
 };
 
+/**
+ * Render Product Function
+ *
+ * This function creates a product container and renders the product data in it.
+ *
+ * @param {Object} product - The product data to render.
+ * @param {HTMLElement} productDetail - The container for the product detail view.
+ */
 const renderProduct = (product, productDetail) => {
   const productContainer = document.createElement('div');
   productContainer.classList.add('product');
@@ -51,6 +74,16 @@ const renderProduct = (product, productDetail) => {
   productDetail.appendChild(productContainer);
 };
 
+/**
+ * Add Button Function
+ *
+ * This function creates and adds a button element to a container.
+ *
+ * @param {HTMLElement} container - The container to which the button will be added.
+ * @param {string} type - The type of the button (e.g., 'back', 'delete', 'update').
+ *
+ * @returns {HTMLButtonElement} - The created button element.
+ */
 const addButton = (container, type) => {
   const button = document.createElement('button');
   button.textContent = `${type !== 'back' ? type + 'Product' : type}`;
@@ -68,9 +101,18 @@ const addButton = (container, type) => {
   return button;
 };
 
+/**
+ * Handle Delete Product Function
+ *
+ * This function handles the deletion of a product and manages success and error messages.
+ *
+ * @param {string} id - The identifier of the product to be deleted.
+ * @param {HTMLElement} productDetail - The container for the product detail view.
+ */
 const handleDeleteProduct = async (id, productDetail) => {
   try {
     await deleteProduct(id);
+
     successMessageEvent('productDeleted', 'Product deleted', productDetail);
     window.location.href = '/';
   } catch (error) {
@@ -80,11 +122,21 @@ const handleDeleteProduct = async (id, productDetail) => {
   }
 };
 
+/**
+ * Create Mutation Buttons Function
+ *
+ * This function creates and returns buttons for product mutation actions.
+ *
+ * @returns {Object} - An object containing created buttons for back, delete, and update actions.
+ */
 const createMutationButtons = () => {
+  // Buttons container
   const buttonsContainer = document.createElement('div');
   buttonsContainer.classList.add('buttons-container');
   const productContent = productDetail.querySelector('.product-content');
   productContent.appendChild(buttonsContainer);
+
+  // Create buttons
   const updateButton = addButton(buttonsContainer, 'update');
   const deleteButton = addButton(buttonsContainer, 'delete');
   const backButton = addButton(buttonsContainer, 'back');

@@ -6,19 +6,26 @@ import { productDetailController } from './productDetailController.js';
 import { getProductId } from '../utils/getProductId.js';
 
 document.addEventListener('DOMContentLoaded', () => {
+  // Needed DOM nodes
+  const modal = document.getElementById('modalSection');
   const notifications = document.getElementById('notifications');
   const productDetail = document.getElementById('productDetail');
   const spinner = document.getElementById('spinner');
-  const modal = document.getElementById('modalSection');
+  const menuContainer = document.getElementById('menu');
+
+  // Modal
   const showModal = confirmModalController(modal);
+
+  // Notifications
   const showNotification = notificationController(notifications);
+
+  // Loader/Spinner
   const { showSpinner, hideSpinner } = spinnerController(spinner);
 
-  const id = getProductId();
-
-  const menuContainer = document.getElementById('menu');
+  // Menu
   menuController(menuContainer, '');
 
+  // Event Listeners
   productDetail.addEventListener('productLoaded', (e) => {
     showNotification(e.detail.message, e.detail.type);
   });
@@ -39,5 +46,7 @@ document.addEventListener('DOMContentLoaded', () => {
     hideSpinner();
   });
 
+  // Controller with product id
+  const id = getProductId();
   productDetailController(productDetail, id);
 });
