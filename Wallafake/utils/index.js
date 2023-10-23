@@ -10,4 +10,4 @@ export {
 } from './customEvent.js';
 export { getSearchParams } from './getSearchParams.js';
 export { selectDefaultOption } from './selectDefaultOption.js';
-export { filterParams } from './filterParams.js';
+export { filterParams } from './validateFilterParams.js';
