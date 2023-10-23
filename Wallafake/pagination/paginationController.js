@@ -13,10 +13,12 @@ export const paginationController = async (pagination) => {
 
   const limit = params._limit || LIMIT;
 
-  if (params.name === '') delete params.name;
+  if (params.name === '' || params.name === 'Any') delete params.name;
   if (params.for === 'all') delete params.for;
   delete params._limit;
   delete params._page;
+
+  params.name = params.name.toLowerCase();
 
   try {
     // Get num products to calculate num pages

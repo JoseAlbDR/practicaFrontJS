@@ -21,7 +21,7 @@ export const productListController = async (
   let products = [];
 
   // Delete no needed params
-  if (params.name === '') delete params.name;
+  if (params.name === 'Any' || params.name === '') delete params.name;
   if (params.for === 'all') delete params.for;
 
   // Set values for search form after each search
@@ -29,10 +29,11 @@ export const productListController = async (
   const inputName = searchForm.querySelector('#productName');
   const selectType = searchForm.querySelector('#search-type');
 
-  inputName.value = params.name || '';
+  inputName.value = params.name || 'Any';
   selectDefaultOption(selectLimit, params._limit || LIMIT);
   selectDefaultOption(selectType, params.for);
 
+  params.name = params.name.toLowerCase();
   try {
     dispatchCustomEvent('loadingProductsStart', null, productList);
     products = await getProducts(params);
