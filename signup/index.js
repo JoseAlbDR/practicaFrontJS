@@ -3,12 +3,18 @@ import { notificationController } from '../notifications/notificationsController
 import { spinnerController } from '../spinner/spinnerController.js';
 
 document.addEventListener('DOMContentLoaded', () => {
+  // Needed DOM nodes
   const registerForm = document.getElementById('register-form');
   const notifications = document.getElementById('notifications');
   const spinner = document.getElementById('spinner');
+
+  // Notifications
   const showNotification = notificationController(notifications);
+
+  // Loader/Spinner
   const { showSpinner, hideSpinner } = spinnerController(spinner);
 
+  // Event Listeners
   registerForm.addEventListener('signup', (e) => {
     showNotification(e.detail.message, e.detail.type);
   });
@@ -21,5 +27,6 @@ document.addEventListener('DOMContentLoaded', () => {
     hideSpinner();
   });
 
+  // Controller
   registerController(registerForm);
 });
