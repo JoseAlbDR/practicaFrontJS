@@ -1,4 +1,5 @@
 .form.search-form {
+  /* position: fixed; */
   width: 100%;
   max-width: 90vw;
   display: flex;
