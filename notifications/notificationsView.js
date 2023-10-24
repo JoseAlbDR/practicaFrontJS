@@ -10,7 +10,7 @@
  */
 export const buildNotification = (message, type) => {
   return `
-    <div class="notification ${type}">
+    <div class="notification alert ${type}">
       <p>${message}</p>
     </div>
   `;
