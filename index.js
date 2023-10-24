@@ -11,8 +11,8 @@ document.addEventListener('DOMContentLoaded', async () => {
   const notifications = document.getElementById('notifications');
   const spinner = document.getElementById('spinner');
   const quantity = document.getElementById('products-quantity');
-  const paginationUp = document.getElementById('pagination-up');
-  const paginationDown = document.getElementById('pagination-down');
+  const paginationTop = document.getElementById('pagination-top');
+  const paginationBottom = document.getElementById('pagination-bottom');
   const menuContainer = document.getElementById('menu');
   const searchForm = document.getElementById('search-form');
 
@@ -33,7 +33,11 @@ document.addEventListener('DOMContentLoaded', async () => {
     showNotification(e.detail.message, e.detail.type);
   });
 
-  paginationUp.addEventListener('paginationLoaded', (e) => {
+  paginationTop.addEventListener('paginationLoaded', (e) => {
+    showNotification(e.detail.message, e.detail.type);
+  });
+
+  paginationBottom.addEventListener('paginationLoaded', (e) => {
     showNotification(e.detail.message, e.detail.type);
   });
 
@@ -46,18 +50,18 @@ document.addEventListener('DOMContentLoaded', async () => {
     hideSpinner();
   });
 
-  paginationUp.addEventListener('pageChanged', () => {
-    paginationController(paginationDown);
+  paginationTop.addEventListener('pageChanged', () => {
+    paginationController(paginationBottom);
     productListController(productList, quantity, searchForm);
   });
 
-  paginationDown.addEventListener('pageChanged', () => {
-    paginationController(paginationUp);
+  paginationBottom.addEventListener('pageChanged', () => {
+    paginationController(paginationTop);
     productListController(productList, quantity, searchForm);
   });
 
   // Controllers
-  paginationController(paginationUp);
-  paginationController(paginationDown);
+  paginationController(paginationTop);
+  paginationController(paginationBottom);
   productListController(productList, quantity, searchForm);
 });
