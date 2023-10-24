@@ -11,7 +11,8 @@ document.addEventListener('DOMContentLoaded', async () => {
   const notifications = document.getElementById('notifications');
   const spinner = document.getElementById('spinner');
   const quantity = document.getElementById('products-quantity');
-  const pagination = document.getElementById('pagination');
+  const paginationUp = document.getElementById('pagination-up');
+  const paginationDown = document.getElementById('pagination-down');
   const menuContainer = document.getElementById('menu');
   const searchForm = document.getElementById('search-form');
 
@@ -32,7 +33,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     showNotification(e.detail.message, e.detail.type);
   });
 
-  pagination.addEventListener('paginationLoaded', (e) => {
+  paginationUp.addEventListener('paginationLoaded', (e) => {
     showNotification(e.detail.message, e.detail.type);
   });
 
@@ -45,11 +46,18 @@ document.addEventListener('DOMContentLoaded', async () => {
     hideSpinner();
   });
 
-  pagination.addEventListener('pageChanged', () => {
+  paginationUp.addEventListener('pageChanged', () => {
+    paginationController(paginationDown);
+    productListController(productList, quantity, searchForm);
+  });
+
+  paginationDown.addEventListener('pageChanged', () => {
+    paginationController(paginationUp);
     productListController(productList, quantity, searchForm);
   });
 
   // Controllers
-  paginationController(pagination);
+  paginationController(paginationUp);
+  paginationController(paginationDown);
   productListController(productList, quantity, searchForm);
 });
