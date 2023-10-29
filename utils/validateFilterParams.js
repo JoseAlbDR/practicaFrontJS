@@ -9,6 +9,7 @@ import { LIMIT } from '../config/const.js';
  * @param {Object} params - The URL parameters to filter and modify.
  */
 export const filterParams = (params) => {
+  if (params.name) params.name = params.name.toLowerCase();
   if (params.name === 'any' || params.name === '') delete params.name;
   if (params.for === 'all') delete params.for;
   if (!params._limit) params._limit = LIMIT;
