@@ -1,6 +1,5 @@
 // Import necessary utilities and functions.
 import {
-  LIMIT,
   dispatchCustomEvent,
   errorMessageEvent,
   filterParams,
@@ -23,6 +22,7 @@ import {
  */
 export const productListController = async (productList, quantity) => {
   let products = [];
+
   const params = getSearchParams();
 
   // Delete default params (name=any, for=all) and set default limit.

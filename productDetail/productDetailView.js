@@ -14,9 +14,9 @@ export const buildProduct = (product) => {
         product.image
       }" alt="product image" class="img" onerror="this.src='../assets/images/no-image-available.webp'"/>
       <div class="product-content">
-        <span>Name: ${product.name}</span>
-        <span>Description: ${product.description}</span>
-        <p>Price: ${product.price}€</p>
+        <span class="product-name">${product.name}</span>
+        <p class="product-description">${product.description}</p>
+        <span class="product-price">${product.price}€</span>
         <p class=${product.for.toLowerCase()}>${product.for}</p>
       </div>
     </div>
