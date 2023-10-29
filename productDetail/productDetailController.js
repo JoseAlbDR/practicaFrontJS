@@ -27,7 +27,10 @@ export const productDetailController = async (productDetail, productId) => {
     const product = await getProduct(productId);
     renderProduct(product, productDetail);
 
-    const { backButton, deleteButton, updateButton } = createMutationButtons();
+    const { backButton, deleteButton, updateButton } = createMutationButtons(
+      userData,
+      product
+    );
 
     // Add a click event to the back button to navigate back in the browser's history.
     backButton.addEventListener('click', () => {
@@ -129,16 +132,20 @@ const handleDeleteProduct = async (id, productDetail) => {
  *
  * @returns {Object} - An object containing created buttons for back, delete, and update actions.
  */
-const createMutationButtons = () => {
+const createMutationButtons = (userData, product) => {
   // Buttons container
   const buttonsContainer = document.createElement('div');
   buttonsContainer.classList.add('buttons-container');
   const productContent = productDetail.querySelector('.product-content');
   productContent.appendChild(buttonsContainer);
+  let updateButton;
+  let deleteButton;
 
   // Create buttons
-  const updateButton = addButton(buttonsContainer, 'update');
-  const deleteButton = addButton(buttonsContainer, 'delete');
+  if (userData?.userId === product.user.id) {
+    updateButton = addButton(buttonsContainer, 'update');
+    deleteButton = addButton(buttonsContainer, 'delete');
+  }
   const backButton = addButton(buttonsContainer, 'back');
 
   return { backButton, updateButton, deleteButton };
